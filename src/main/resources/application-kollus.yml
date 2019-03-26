@@ -1,0 +1,7 @@
+kollus:
+ mailAddress:
+ secretKey:
+ host: smtp.gmail.com
+ protocol : http
+ startTime: "09:00:00"
+ endTime: "22:00:00"
