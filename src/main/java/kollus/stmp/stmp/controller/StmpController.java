@@ -13,12 +13,12 @@ import java.util.Locale;
 @RequestMapping("/stmp")
 public class StmpController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/", method = RequestMethod.GET)
     public String test(Locale locale, Model model){
         System.out.println("===============inSite Spring by Jae Yoon Lee - Get Test=======================");
 
-        return "test123";
-    }
+        return "test";
+    }*/
 
     @RequestMapping(path="", method=RequestMethod.GET)
     public ModelAndView index() {
