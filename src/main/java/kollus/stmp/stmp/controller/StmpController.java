@@ -1,5 +1,7 @@
 package kollus.stmp.stmp.controller;
 
+import kollus.stmp.stmp.KollusConfig;
+import kollus.stmp.stmp.SendMailComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import java.util.Locale;
 @RequestMapping("/stmp")
 public class StmpController {
 
+    @Autowired
+    private SendMailComponent SendMailComponent;
     /*@RequestMapping(value = "/", method = RequestMethod.GET)
     public String test(Locale locale, Model model){
         System.out.println("===============inSite Spring by Jae Yoon Lee - Get Test=======================");
@@ -20,9 +24,9 @@ public class StmpController {
         return "test";
     }*/
 
-    @RequestMapping(path="", method=RequestMethod.GET)
+    @RequestMapping(path="/", method=RequestMethod.GET)
     public ModelAndView index() {
-
+        SendMailComponent.sendMailingSystem();
         return new ModelAndView("test");
     }
 }

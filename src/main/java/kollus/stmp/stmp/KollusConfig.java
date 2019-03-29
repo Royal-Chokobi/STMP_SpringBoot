@@ -3,32 +3,32 @@ package kollus.stmp.stmp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "kollus")
-@PropertySource(value = {"classpath:application-kollus.yml"})
 public class KollusConfig {
 
-    @Value("${mailAddress}")
+    @Value("${kollus.mailAddress}")
     private String mailAddress;
-    @Value("${secretKey}")
+    @Value("${kollus.secretKey}")
     private String secretKey;
-    @Value("${host}")
+    @Value("${kollus.host}")
     private String host;
-    @Value("${protocol}")
+    @Value("${kollus.protocol}")
     private String protocol;
-    @Value("${startTime}")
+    @Value("${kollus.startTime}")
     private String startTime;
-    @Value("${endTime}")
+    @Value("${kollus.endTime}")
     private String endTime;
 
-    public String getMailAddress() { return mailAddress; }
+    public String getMailAddress() {
+        return mailAddress;
+    }
 
-    public void setMailAddress(String customKey) {
-        this.mailAddress = customKey;
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
     }
 
     public String getSecretKey() {
@@ -73,6 +73,7 @@ public class KollusConfig {
 
     @Override
     public String toString() {
-        return "[mailAddress=" + mailAddress + ", secretKey=" + secretKey + ", host=" + host +  ", protocol=" + protocol +"]";
+        System.out.println("[mailAddress=" + getMailAddress() + ", secretKey=" + getSecretKey() + ", host=" + getHost() + ", protocol=" + getProtocol() + "]");
+        return "";
     }
 }
