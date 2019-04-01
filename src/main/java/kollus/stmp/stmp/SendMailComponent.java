@@ -1,9 +1,17 @@
 package kollus.stmp.stmp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.Properties;
 
 @Component
 public class SendMailComponent {
@@ -12,56 +20,61 @@ public class SendMailComponent {
 
     public SendMailComponent(){}
 
-    public void sendMailingSystem(){
+    /*public String getHTMLMailForm() throws Exception{
+        File fileps = new File("src/main/resources/templates/mailForm/sendMailContent.html");
 
-        System.out.println("asdfasdf");
+        Path path = Paths.get(fileps.getCanonicalPath());
+        Charset cs = StandardCharsets.UTF_8;
+        List<String> list = new ArrayList<String>();
+        try{
+            list = Files.readAllLines(path,cs);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        for(String readLine : list){
+            System.out.println(readLine);
+        }
+
+        return "";
+    }*/
+
+    public void sendMailingSystem(String toUser){
+
         kollusConfig.toString();
-        String aa = kollusConfig.getMailAddress();
-        System.out.println(aa);
 
         String smtpHost = kollusConfig.getHost();
+        String smtpPort = "587";
         String smtpProtocol = kollusConfig.getProtocol();
         String smtpMailAddress = kollusConfig.getMailAddress();
+        String smtpSecretKey = kollusConfig.getSecretKey();
 
+        if(smtpProtocol.equals("https") && !smtpProtocol.isEmpty()){
+            smtpPort = "465"; // ssl 일 경우.
+        }
 
-        Properties p = System.getProperties();
-        p.put("mail.smtp.starttls.enable", "true");     // gmail은 무조건 true 고정
-        p.put("mail.smtp.host", "smtp.gmail.com");      // smtp 서버 주소
-        p.put("mail.smtp.auth","true");                 // gmail은 무조건 true 고정
-        p.put("mail.smtp.port", "587");                 // gmail 포트 ssl은 465
+        Properties prop = System.getProperties();
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", smtpHost);
+        prop.put("mail.smtp.auth","true");
+        prop.put("mail.smtp.port", smtpPort);
 
-        Authenticator auth = new MyAuthentication();
-
-        //session 생성 및  MimeMessage생성
-        Session session = Session.getDefaultInstance(p, auth);
+        Authenticator auth = new MailAuthentication(smtpMailAddress, smtpSecretKey);
+        Session session = Session.getDefaultInstance(prop, auth);
         MimeMessage msg = new MimeMessage(session);
 
         try{
-            //편지보낸시간
-            msg.setSentDate(new Date());
-            InternetAddress from = new InternetAddress() ;
-            from = new InternetAddress("@catenoid.net");
+            msg.setSentDate(new Date()); //편지보낸시간
+            InternetAddress from = new InternetAddress(smtpMailAddress);
+            msg.setFrom(from); // 이메일 발신자
 
-            // 이메일 발신자
-            msg.setFrom(from);
+            /** 이메일 수신자 부분 **/
+            msg.addRecipients(Message.RecipientType.CC, toUser);
 
-            // 이메일 수신자
-            InternetAddress[] to = new InternetAddress[10];
-            to[0] = new InternetAddress("");
-            to[1] = new InternetAddress("");
-            msg.setRecipient(Message.RecipientType.TO, to[0]);
-            msg.addRecipient(Message.RecipientType.TO, to[1]);
-
-            // 이메일 제목
             msg.setSubject("메일 전송 테스트", "UTF-8");
+            String contents = "";
 
-            // 이메일 내용
-            msg.setText("내용123123", "UTF-8");
+            msg.setContent(contents,"text/html;charset=euc-kr");
 
-            // 이메일 헤더
-            msg.setHeader("content-Type", "text/html");
-
-            //메일보내기
             javax.mail.Transport.send(msg);
 
         }catch (AddressException addr_e) {
@@ -69,7 +82,6 @@ public class SendMailComponent {
         }catch (MessagingException msg_e) {
             msg_e.printStackTrace();
         }
-
     }
 
 }
