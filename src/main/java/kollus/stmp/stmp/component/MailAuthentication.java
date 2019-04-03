@@ -1,4 +1,4 @@
-package kollus.stmp.stmp;
+package kollus.stmp.stmp.component;
 
 import org.springframework.stereotype.Component;
 

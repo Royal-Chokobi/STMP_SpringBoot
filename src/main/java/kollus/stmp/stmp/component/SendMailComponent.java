@@ -1,5 +1,8 @@
-package kollus.stmp.stmp;
+package kollus.stmp.stmp.component;
 
+import kollus.stmp.stmp.KollusConfig;
+import kollus.stmp.stmp.dao.DbtestEntity;
+import kollus.stmp.stmp.dao.DbtestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,34 +14,32 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 @Component
 public class SendMailComponent {
     @Autowired
     private KollusConfig kollusConfig;
+    @Autowired
+    private DbtestRepository dbtestRepository;
 
     public SendMailComponent(){}
 
-    /*public String getHTMLMailForm() throws Exception{
-        File fileps = new File("src/main/resources/templates/mailForm/sendMailContent.html");
+    public void test123(){
+        List<DbtestEntity> items = dbtestRepository.findByRange();
+        System.out.println(items);
+    }
+    public String getHTMLMailForm(String textBody){
 
-        Path path = Paths.get(fileps.getCanonicalPath());
-        Charset cs = StandardCharsets.UTF_8;
-        List<String> list = new ArrayList<String>();
-        try{
-            list = Files.readAllLines(path,cs);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        for(String readLine : list){
-            System.out.println(readLine);
-        }
+        String mailForm = "<div style = 'width: 900px;'>";
+        mailForm+=textBody;
+        mailForm+="</div>";
 
-        return "";
-    }*/
+        return mailForm;
+    }
 
-    public void sendMailingSystem(String toUser){
+    public void sendMailingSystem(String sendMailHTML){
 
         kollusConfig.toString();
 
@@ -59,9 +60,9 @@ public class SendMailComponent {
         prop.put("mail.smtp.port", smtpPort);
 
         Authenticator auth = new MailAuthentication(smtpMailAddress, smtpSecretKey);
-        Session session = Session.getDefaultInstance(prop, auth);
+        Session session = Session.getInstance(prop, auth);
         MimeMessage msg = new MimeMessage(session);
-
+        String toUser = "jaeyoon.lee@catenoid.net,sinsax@naver.com";
         try{
             msg.setSentDate(new Date()); //편지보낸시간
             InternetAddress from = new InternetAddress(smtpMailAddress);
@@ -71,9 +72,9 @@ public class SendMailComponent {
             msg.addRecipients(Message.RecipientType.CC, toUser);
 
             msg.setSubject("메일 전송 테스트", "UTF-8");
-            String contents = "";
+           // String contents = "";
 
-            msg.setContent(contents,"text/html;charset=euc-kr");
+            msg.setContent(sendMailHTML,"text/html;charset=euc-kr");
 
             javax.mail.Transport.send(msg);
 

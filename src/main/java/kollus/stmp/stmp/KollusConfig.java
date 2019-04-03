@@ -35,20 +35,20 @@ public class KollusConfig {
         this.secretKey = secretKey;
     }
 
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
     public String getHost() {
         return host;
     }
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
     }
 
     public String getStartTime() {
@@ -69,7 +69,13 @@ public class KollusConfig {
 
     @Override
     public String toString() {
-        System.out.println("[mailAddress=" + getMailAddress() + ", secretKey=" + getSecretKey() + ", host=" + getHost() + ", protocol=" + getProtocol() + "]");
-        return "";
+        return "KollusConfig{" +
+                "mailAddress='" + mailAddress + '\'' +
+                ", secretKey='" + secretKey + '\'' +
+                ", host='" + host + '\'' +
+                ", protocol='" + protocol + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                '}';
     }
 }
