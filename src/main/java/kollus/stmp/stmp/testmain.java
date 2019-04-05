@@ -43,6 +43,8 @@ public class testmain {
 
         scheduler.scheduleJob(job, trigger);
 
+        //https://www.mkyong.com/java/quartz-2-scheduler-tutorial/ 참고
+
 
     }
 }
