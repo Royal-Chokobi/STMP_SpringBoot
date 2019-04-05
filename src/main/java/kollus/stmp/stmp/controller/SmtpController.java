@@ -1,5 +1,6 @@
 package kollus.stmp.stmp.controller;
 
+import kollus.stmp.stmp.component.ScheduleComponent;
 import kollus.stmp.stmp.component.SendMailComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class SmtpController {
 
     @Autowired
     private SendMailComponent SendMailComponent;
+    @Autowired
+    private ScheduleComponent ScheduleComponent;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
@@ -27,6 +30,8 @@ public class SmtpController {
     @RequestMapping(value = {"/smtp"}, method = RequestMethod.GET)
     public ModelAndView test() throws Exception{
         System.out.println("===============inSite Spring by Jae Yoon Lee - Get Test=======================");
+        System.out.println(ScheduleComponent.scheduledExecutionTime());
+
        // SendMailComponent.getHTMLMailForm();
        // SendMailComponent.sendMailingSystem("");
        // List<DbtestEntity> items = dbtestRepository.findByRange();
