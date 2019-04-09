@@ -2,15 +2,20 @@ package kollus.stmp.stmp.controller;
 
 import kollus.stmp.stmp.component.ScheduleComponent;
 import kollus.stmp.stmp.component.SendMailComponent;
+import kollus.stmp.stmp.dao.DbCustomerEntity;
+import kollus.stmp.stmp.dao.DbCustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -21,16 +26,23 @@ public class SmtpController {
     private SendMailComponent SendMailComponent;
     @Autowired
     private ScheduleComponent ScheduleComponent;
+    @Autowired
+    private DbCustomerRepository DbCustomerRepository;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
+        List<DbCustomerEntity> items = DbCustomerRepository.selectCustomerInformation();
+        System.out.println(items);
+        for(DbCustomerEntity a : items){
+            System.out.println(a.getCustomer_email());
+        }
+
         return new ModelAndView("index");
     }
 
     @RequestMapping(value = {"/smtp"}, method = RequestMethod.GET)
     public ModelAndView test() throws Exception{
-        System.out.println("===============inSite Spring by Jae Yoon Lee - Get Test=======================");
-        System.out.println(ScheduleComponent.scheduledExecutionTime());
+        System.out.println("===============inSite Spring by Jae Yoon Lee - Get smtp=======================");
 
        // SendMailComponent.getHTMLMailForm();
        // SendMailComponent.sendMailingSystem("");
@@ -41,9 +53,10 @@ public class SmtpController {
         return new ModelAndView("test");
     }
 
-    @RequestMapping(value = {"/formTest"}, method = RequestMethod.POST)
-    public ModelAndView formTest(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
-        System.out.println("===============inSite Spring by Jae Yoon Lee - formTest=======================");
+    @ResponseBody
+    @RequestMapping(value = {"/sendMail"}, method = RequestMethod.POST)
+    public HashMap<String, Object> sendMail(HttpServletRequest request) throws Exception{
+        System.out.println("===============inSite Spring by Jae Yoon Lee - sendMail=======================");
 
         request.setCharacterEncoding("utf-8");
 
@@ -54,14 +67,20 @@ public class SmtpController {
             System.out.println(name + " : " +request.getParameter(name));
         }
         System.out.println("----------------------------");*/
-
-        //System.out.println(request.getParameter("mailForm"));
+        HashMap<String, Object> result = new HashMap<String, Object>();
         String textBody = request.getParameter("mailForm");
+        String sendType = request.getParameter("type");
+        System.out.println(sendType);
         if(!textBody.isEmpty()){
-           String sendMailHTML =  SendMailComponent.getHTMLMailForm(textBody);
-            SendMailComponent.sendMailingSystem(sendMailHTML);
+            List<HashMap<String, String>> costomerList = SendMailComponent.getCustomerCode(sendType, "");
+            String sendMailHTML =  SendMailComponent.getHTMLMailForm(textBody);
+            result= SendMailComponent.sendMailingSystem(sendMailHTML, costomerList);
+        }else{
+            result.put("error", 1);
+            result.put("message", "-null에러 메일 양식이 없습니다.");
         }
-        return new ModelAndView("test");
+
+        return result;
     }
 
 }

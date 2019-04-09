@@ -1,8 +1,7 @@
 package kollus.stmp.stmp.component;
 
 import kollus.stmp.stmp.KollusConfig;
-import kollus.stmp.stmp.dao.DbtestEntity;
-import kollus.stmp.stmp.dao.DbtestRepository;
+import kollus.stmp.stmp.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +12,7 @@ import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Component
 public class SendMailComponent {
@@ -23,6 +20,11 @@ public class SendMailComponent {
     private KollusConfig kollusConfig;
     @Autowired
     private DbtestRepository dbtestRepository;
+    @Autowired
+    private DbCustomerRepository dbCustomerRepository;
+    @Autowired
+    private DbCustomerCodeRepository dbCustomerCodeRepository;
+
 
     public SendMailComponent(){}
 
@@ -39,9 +41,59 @@ public class SendMailComponent {
         return mailForm;
     }
 
-    public void sendMailingSystem(String sendMailHTML){
+    public List<HashMap<String, String>> getCustomerCode(String type, String key){
+        List<HashMap<String, String>> customerList = new ArrayList<HashMap<String, String>>();
+        String toUser = "";
 
-        kollusConfig.toString();
+        if(type.equals("all")){
+            List<DbCustomerCodeEntity> codeList = dbCustomerCodeRepository.selectCustomerCode();
+            for(DbCustomerCodeEntity item : codeList){
+                HashMap<String, String> customItem = new HashMap<String, String>();
+                List<DbCustomerEntity> csItems = dbCustomerRepository.findCustomerKey(item.getCustomer_key());
+
+                if(csItems.size() >0 ){
+                    for(DbCustomerEntity csEntity : csItems){
+                        toUser += csEntity.getCustomer_email()+",";
+                    }
+                    customItem.put("key", item.getCustomer_key());
+                    customItem.put("email", toUser);
+                    customerList.add(customItem);
+                }
+                toUser = "";
+            }
+        }else{
+            if(!key.isEmpty()){
+                String[] csKey= key.split(",");
+                for(String item :  csKey){
+                    HashMap<String, String> customItem = new HashMap<String, String>();
+                    List<DbCustomerEntity> csItems = dbCustomerRepository.findCustomerKey(item);
+
+                    if(csItems.size() >0 ){
+                        for(DbCustomerEntity csEntity : csItems){
+                            toUser += csEntity.getCustomer_email()+",";
+                        }
+                        customItem.put("key", item);
+                        customItem.put("email", toUser);
+                        customerList.add(customItem);
+                    }
+                    toUser = "";
+                }
+            }
+        }
+
+        return customerList;
+    }
+
+    public HashMap<String, Object> sendMailingSystem(String sendMailHTML, List<HashMap<String, String>> costomerList){
+       // List<DbCustomerEntity> items = dbCustomerRepository.selectCustomerInformation();
+        HashMap<String, Object> result = new HashMap<String, Object>();
+       // kollusConfig.toString();
+
+        if(costomerList.size() <= 0){
+            result.put("error", 1);
+            result.put("message", "등록된 고객정보가 없습니다.");
+            return result;
+        }
 
         String smtpHost = kollusConfig.getHost();
         String smtpPort = "587";
@@ -61,28 +113,42 @@ public class SendMailComponent {
 
         Authenticator auth = new MailAuthentication(smtpMailAddress, smtpSecretKey);
         Session session = Session.getInstance(prop, auth);
-        MimeMessage msg = new MimeMessage(session);
-        String toUser = "jaeyoon.lee@catenoid.net,sinsax@naver.com";
-        try{
-            msg.setSentDate(new Date()); //편지보낸시간
-            InternetAddress from = new InternetAddress(smtpMailAddress);
-            msg.setFrom(from); // 이메일 발신자
 
-            /** 이메일 수신자 부분 **/
-            msg.addRecipients(Message.RecipientType.CC, toUser);
+        for(HashMap<String, String> mapList:costomerList){
 
-            msg.setSubject("메일 전송 테스트", "UTF-8");
-           // String contents = "";
+            String toUser = mapList.get("email");
 
-            msg.setContent(sendMailHTML,"text/html;charset=euc-kr");
+            MimeMessage msg = new MimeMessage(session);
+            // String toUser = "jaeyoon.lee@catenoid.net,sinsax@naver.com";
+            try{
+                msg.setSentDate(new Date()); //편지보낸시간
+                InternetAddress from = new InternetAddress(smtpMailAddress);
+                msg.setFrom(from); // 이메일 발신자
 
-            javax.mail.Transport.send(msg);
+                /** 이메일 수신자 부분 **/
+                msg.addRecipients(Message.RecipientType.CC, toUser);
+                msg.setSubject("메일 전송 단위 테스트", "UTF-8");
+                msg.setContent(sendMailHTML,"text/html;charset=euc-kr");
+                javax.mail.Transport.send(msg);
 
-        }catch (AddressException addr_e) {
-            addr_e.printStackTrace();
-        }catch (MessagingException msg_e) {
-            msg_e.printStackTrace();
+               /* result.put("error", 0);
+                result.put("message", "전송에 성공했습니다.");*/
+            }catch (AddressException addr_e) {
+                /*result.put("error", 1);
+                result.put("message", "-addr system error 전송에 실패했습니다.");*/
+                addr_e.printStackTrace();
+            }catch (MessagingException msg_e) {
+               /* result.put("error", 1);
+                result.put("message", "-msg system error 전송에 실패했습니다.");*/
+                msg_e.printStackTrace();
+            }
+
         }
+
+        result.put("error", 0);
+        result.put("message", "전송에 성공했습니다.");
+
+        return result;
     }
 
 }

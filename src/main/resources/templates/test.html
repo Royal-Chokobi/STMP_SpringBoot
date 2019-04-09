@@ -31,17 +31,18 @@
     var sendTextarea = function () {
 
         var mailForm = tinymce.activeEditor.getContent();
-        console.log(mailForm);
+      //  console.log(mailForm);
         $.ajax({
-            url: "/formTest",
+            url: "/sendMail",
            // processData: false,
            // contentType: "text/html;charset=utf-8",
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",
             dataType: 'JSON',
-            data: { mailForm : mailForm},
+            data: { mailForm : mailForm, type : 'all'},
             type: 'POST',
             success: function(retval){
                 //console.log(retval);
+                alert(retval.message);
             }
         });
     }

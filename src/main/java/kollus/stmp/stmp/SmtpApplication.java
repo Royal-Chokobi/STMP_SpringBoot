@@ -11,8 +11,8 @@ public class SmtpApplication {
     public static void main(String[] args)  throws Exception{
         SpringApplication.run(SmtpApplication.class, args);
 
-        ScheduleComponent scCom= new ScheduleComponent();
-        scCom.test();
+        //ScheduleComponent scCom= new ScheduleComponent();
+        //scCom.test();
        /* try (ConfigurableApplicationContext ctx = SpringApplication.run(SmtpApplication.class, args)) {
             ScheduleComponent m = ctx.getBean(ScheduleComponent.class);
             m.test();
