@@ -11,4 +11,5 @@ public interface DbCustomerRepository extends CrudRepository<DbCustomerEntity, L
     List<DbCustomerEntity> selectCustomerInformation();
     @Query("SELECT tb_info FROM customer_information tb_info WHERE tb_info.customer_key = :customer_key")
     List<DbCustomerEntity> findCustomerKey(@Param("customer_key") String customer_key);
+
 }

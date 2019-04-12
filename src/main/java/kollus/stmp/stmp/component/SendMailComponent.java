@@ -25,7 +25,6 @@ public class SendMailComponent {
     @Autowired
     private DbCustomerCodeRepository dbCustomerCodeRepository;
 
-
     public SendMailComponent(){}
 
     public void test123(){
@@ -41,12 +40,33 @@ public class SendMailComponent {
         return mailForm;
     }
 
+    public String setSchedule(String sendMailHTML, List<HashMap<String, String>> costomerList){
+
+        return "";
+    }
+
     public List<HashMap<String, String>> getCustomerCode(String type, String key){
+        JQPLFuntionClass aaaa = new JQPLFuntionClass();
+        aaaa.GetCustomerEmail();
+
         List<HashMap<String, String>> customerList = new ArrayList<HashMap<String, String>>();
         String toUser = "";
+        List<Object[]> resultList = dbCustomerCodeRepository.GetCustomerEmail();
+        /*for(HashMap<String, String> item : codeList){
 
+            System.out.println(item.toString());
+      //      System.out.println(item.get("customer_email"));
+        }*/
+        HashMap<String, String> results = new HashMap<String, String>();
+        for (Object[] borderTypes: resultList) {
+            results.put((String)borderTypes[0], (String)borderTypes[1]);
+            // key = customer , value = customer_email
+        }
+
+        Set<String> aaa= results.keySet();
+        System.out.println(aaa);
         if(type.equals("all")){
-            List<DbCustomerCodeEntity> codeList = dbCustomerCodeRepository.selectCustomerCode();
+         /*   List<DbCustomerCodeEntity> codeList = dbCustomerCodeRepository.selectCustomerCode();
             for(DbCustomerCodeEntity item : codeList){
                 HashMap<String, String> customItem = new HashMap<String, String>();
                 List<DbCustomerEntity> csItems = dbCustomerRepository.findCustomerKey(item.getCustomer_key());
@@ -60,7 +80,7 @@ public class SendMailComponent {
                     customerList.add(customItem);
                 }
                 toUser = "";
-            }
+            }*/
         }else{
             if(!key.isEmpty()){
                 String[] csKey= key.split(",");
@@ -111,35 +131,33 @@ public class SendMailComponent {
         prop.put("mail.smtp.auth","true");
         prop.put("mail.smtp.port", smtpPort);
 
-        Authenticator auth = new MailAuthentication(smtpMailAddress, smtpSecretKey);
-        Session session = Session.getInstance(prop, auth);
-
         for(HashMap<String, String> mapList:costomerList){
+            Authenticator auth = new MailAuthentication(smtpMailAddress, smtpSecretKey);
+            Session session = Session.getInstance(prop, auth);
 
             String toUser = mapList.get("email");
 
             MimeMessage msg = new MimeMessage(session);
             // String toUser = "jaeyoon.lee@catenoid.net,sinsax@naver.com";
             try{
-                msg.setSentDate(new Date()); //편지보낸시간
+                msg.setSentDate(new Date());
                 InternetAddress from = new InternetAddress(smtpMailAddress);
-                msg.setFrom(from); // 이메일 발신자
+                msg.setFrom(from);
 
-                /** 이메일 수신자 부분 **/
                 msg.addRecipients(Message.RecipientType.CC, toUser);
                 msg.setSubject("메일 전송 단위 테스트", "UTF-8");
                 msg.setContent(sendMailHTML,"text/html;charset=euc-kr");
                 javax.mail.Transport.send(msg);
 
-               /* result.put("error", 0);
-                result.put("message", "전송에 성공했습니다.");*/
+               // result.put("error", 0);
+              //  result.put("message", "전송에 성공했습니다.");
             }catch (AddressException addr_e) {
-                /*result.put("error", 1);
-                result.put("message", "-addr system error 전송에 실패했습니다.");*/
+               // result.put("error", 1);
+               // result.put("message", "-addr system error 전송에 실패했습니다.");
                 addr_e.printStackTrace();
             }catch (MessagingException msg_e) {
-               /* result.put("error", 1);
-                result.put("message", "-msg system error 전송에 실패했습니다.");*/
+              //  result.put("error", 1);
+              //  result.put("message", "-msg system error 전송에 실패했습니다.");
                 msg_e.printStackTrace();
             }
 
@@ -150,5 +168,6 @@ public class SendMailComponent {
 
         return result;
     }
+
 
 }

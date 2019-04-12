@@ -42,7 +42,8 @@ public class testmain {
         //schedule it
 
         scheduler.scheduleJob(job, trigger);
-
+        System.out.println("aaaaaaaaaa");
+        scheduler.shutdown();
         //https://www.mkyong.com/java/quartz-2-scheduler-tutorial/ 참고
 
 

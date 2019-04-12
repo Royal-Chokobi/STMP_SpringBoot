@@ -1,48 +1,49 @@
 package kollus.stmp.stmp.component;
 
+import kollus.stmp.stmp.KollusConfig;
+import kollus.stmp.stmp.dao.*;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Component
-public class ScheduleComponent extends TimerTask{
+public class ScheduleComponent implements Job {
+   /* @Autowired
+    private KollusConfig kollusConfig;
+    @Autowired
+    private DbtestRepository dbtestRepository;
+    @Autowired
+    private DbCustomerRepository dbCustomerRepository;
+    @Autowired
+    private DbCustomerCodeRepository dbCustomerCodeRepository;*/
 
     public ScheduleComponent() {
     }
 
-    public void test() throws Exception{
-        Timer m_timer = new Timer(true);
-
-        String oldstring = "2019-04-04 13:50:00";
-        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(oldstring);
-        //Date firstTime = new Date();
-        System.out.println(date);
-        long period = 300*1000;
-        TimerTask m_task = new ScheduleComponent();
-        m_timer.schedule(m_task,date);
-
-    }
-
     @Override
-    public boolean cancel() {
-        return super.cancel();
-    }
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+       /* List<HashMap<String, String>> customerList = new ArrayList<HashMap<String, String>>();
+        String toUser = "";
+        List<DbCustomerCodeEntity> codeList = dbCustomerCodeRepository.selectCustomerCode();
+        for(DbCustomerCodeEntity item : codeList){
+            HashMap<String, String> customItem = new HashMap<String, String>();
+            List<DbCustomerEntity> csItems = dbCustomerRepository.findCustomerKey(item.getCustomer_key());
 
-    @Override
-    public long scheduledExecutionTime() {
-        return super.scheduledExecutionTime();
-    }
-
-    @Override
-    public void run() {
-        System.out.println("test : "+ new Date() + " ============ " + scheduledExecutionTime()+ " ============ ");
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            if(csItems.size() >0 ){
+                for(DbCustomerEntity csEntity : csItems){
+                    toUser += csEntity.getCustomer_email()+",";
+                }
+                customItem.put("key", item.getCustomer_key());
+                customItem.put("email", toUser);
+                customerList.add(customItem);
+            }
+            toUser = "";
+        }*/
     }
 }

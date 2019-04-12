@@ -50,6 +50,14 @@ public class SmtpController {
       //  System.out.println(items.toString());
       //  SendMailComponent.test123();
 
+        /*Enumeration params = request.getParameterNames();
+        System.out.println("----------------------------");
+        while (params.hasMoreElements()){
+            String name = (String)params.nextElement();
+            System.out.println(name + " : " +request.getParameter(name));
+        }
+        System.out.println("----------------------------");*/
+
         return new ModelAndView("test");
     }
 
@@ -60,21 +68,14 @@ public class SmtpController {
 
         request.setCharacterEncoding("utf-8");
 
-        /*Enumeration params = request.getParameterNames();
-        System.out.println("----------------------------");
-        while (params.hasMoreElements()){
-            String name = (String)params.nextElement();
-            System.out.println(name + " : " +request.getParameter(name));
-        }
-        System.out.println("----------------------------");*/
         HashMap<String, Object> result = new HashMap<String, Object>();
         String textBody = request.getParameter("mailForm");
         String sendType = request.getParameter("type");
         System.out.println(sendType);
         if(!textBody.isEmpty()){
             List<HashMap<String, String>> costomerList = SendMailComponent.getCustomerCode(sendType, "");
-            String sendMailHTML =  SendMailComponent.getHTMLMailForm(textBody);
-            result= SendMailComponent.sendMailingSystem(sendMailHTML, costomerList);
+          //  String sendMailHTML =  SendMailComponent.getHTMLMailForm(textBody);
+         //   result= SendMailComponent.sendMailingSystem(sendMailHTML, costomerList);
         }else{
             result.put("error", 1);
             result.put("message", "-null에러 메일 양식이 없습니다.");

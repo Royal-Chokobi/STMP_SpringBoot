@@ -3,6 +3,7 @@ package kollus.stmp.stmp.component;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.stereotype.Component;
+import static org.quartz.JobKey.*;
 
 import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
@@ -45,11 +46,11 @@ public class ScheduleComponent_test implements Job{
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("테스트트트트");
+        System.out.println("aaaaaaaaaaa123aaaaa");
         System.out.println(jobExecutionContext.getTrigger());
         Trigger tg = jobExecutionContext.getTrigger();
         System.out.println(tg.getKey());
-
+       // jobKey("aa");
     }
 
    /*
