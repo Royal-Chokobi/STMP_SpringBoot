@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +30,7 @@ public class SmtpController {
     @Autowired
     private DbCustomerRepository DbCustomerRepository;
 
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
         List<DbCustomerEntity> items = DbCustomerRepository.selectCustomerInformation();
         System.out.println(items);
@@ -38,6 +39,12 @@ public class SmtpController {
         }
 
         return new ModelAndView("index");
+    }
+
+    @RequestMapping(value = {"/tb"}, method = RequestMethod.GET)
+    public ModelAndView hello(Model model, @RequestParam(value="name", required=false, defaultValue="") String name) {
+        model.addAttribute("name", name);
+        return new ModelAndView("tables");
     }
 
     @RequestMapping(value = {"/smtp"}, method = RequestMethod.GET)
@@ -73,7 +80,7 @@ public class SmtpController {
         String sendType = request.getParameter("type");
         System.out.println(sendType);
         if(!textBody.isEmpty()){
-            List<HashMap<String, String>> costomerList = SendMailComponent.getCustomerCode(sendType, "");
+            HashMap<String, String> costomerList = SendMailComponent.getCustomerCode(sendType, "");
           //  String sendMailHTML =  SendMailComponent.getHTMLMailForm(textBody);
          //   result= SendMailComponent.sendMailingSystem(sendMailHTML, costomerList);
         }else{

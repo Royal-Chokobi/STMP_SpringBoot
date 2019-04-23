@@ -2,8 +2,8 @@ package kollus.stmp.stmp.dao;
 
 import javax.persistence.*;
 
-@Entity(name = "customer_information")
-@Table(name = "CUSTOMER_INFORMATION")
+@Entity(name = "customer_info")
+@Table(name = "CUSTOMER_INFO")
 public class DbCustomerEntity {
 
     @Id

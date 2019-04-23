@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import javax.persistence.*;
 
-public class JQPLFuntionClass {
+public class JPQLFuntionClass {
     @Autowired
     private EntityManager em;
     @Autowired
     private TypedQuery query;
 
-    public JQPLFuntionClass(){}
+    public JPQLFuntionClass(){}
 
     public void GetCustomerEmail(){
         EntityManagerFactory entityManagerFactory =

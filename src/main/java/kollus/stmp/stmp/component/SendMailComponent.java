@@ -45,12 +45,10 @@ public class SendMailComponent {
         return "";
     }
 
-    public List<HashMap<String, String>> getCustomerCode(String type, String key){
-        JQPLFuntionClass aaaa = new JQPLFuntionClass();
-        aaaa.GetCustomerEmail();
+    public HashMap<String, String> getCustomerCode(String type, String key){
 
-        List<HashMap<String, String>> customerList = new ArrayList<HashMap<String, String>>();
-        String toUser = "";
+      //  List<HashMap<String, String>> customerList = new ArrayList<HashMap<String, String>>();
+      //  String toUser = "";
         List<Object[]> resultList = dbCustomerCodeRepository.GetCustomerEmail();
         /*for(HashMap<String, String> item : codeList){
 
@@ -63,10 +61,13 @@ public class SendMailComponent {
             // key = customer , value = customer_email
         }
 
-        Set<String> aaa= results.keySet();
-        System.out.println(aaa);
-        if(type.equals("all")){
-         /*   List<DbCustomerCodeEntity> codeList = dbCustomerCodeRepository.selectCustomerCode();
+        //Set<String> aaa= results.;
+       // Iterator iterator = aaa.iterator();
+
+      //  System.out.println(aaa);
+
+        /*if(type.equals("all")){
+            List<DbCustomerCodeEntity> codeList = dbCustomerCodeRepository.selectCustomerCode();
             for(DbCustomerCodeEntity item : codeList){
                 HashMap<String, String> customItem = new HashMap<String, String>();
                 List<DbCustomerEntity> csItems = dbCustomerRepository.findCustomerKey(item.getCustomer_key());
@@ -80,7 +81,7 @@ public class SendMailComponent {
                     customerList.add(customItem);
                 }
                 toUser = "";
-            }*/
+            }
         }else{
             if(!key.isEmpty()){
                 String[] csKey= key.split(",");
@@ -99,9 +100,9 @@ public class SendMailComponent {
                     toUser = "";
                 }
             }
-        }
+        }*/
 
-        return customerList;
+        return results;
     }
 
     public HashMap<String, Object> sendMailingSystem(String sendMailHTML, List<HashMap<String, String>> costomerList){

@@ -1,28 +1,19 @@
 package kollus.stmp.stmp;
 
-import kollus.stmp.stmp.component.ScheduleComponent_test;
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
 
 @Component
 public class testmain {
 
     public static void main(String[] args) throws Exception{
 
-        Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+        System.out.println(LocalDateTime.now());
+        System.out.println(LocalDateTime.now().plusMinutes(5));
+
+
+        /*Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         scheduler.start();
 
         JobDetail job = JobBuilder.newJob(ScheduleComponent_test.class)
@@ -43,7 +34,7 @@ public class testmain {
 
         scheduler.scheduleJob(job, trigger);
         System.out.println("aaaaaaaaaa");
-        scheduler.shutdown();
+        scheduler.shutdown();*/
         //https://www.mkyong.com/java/quartz-2-scheduler-tutorial/ 참고
 
 

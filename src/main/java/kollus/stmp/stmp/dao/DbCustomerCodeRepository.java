@@ -13,7 +13,7 @@ public interface DbCustomerCodeRepository extends CrudRepository<DbCustomerCodeE
 
    @Query(
             value = "SELECT tb_code.customer, GROUP_CONCAT(tb_info.customer_email separator ',') AS customer_email FROM customer_code tb_code " +
-                    "INNER JOIN  customer_information tb_info ON tb_info.customer_key = tb_code.customer_key " +
+                    "INNER JOIN  customer_info tb_info ON tb_info.customer_key = tb_code.customer_key " +
                     "GROUP BY tb_code.customer"
             , nativeQuery = true
     )
