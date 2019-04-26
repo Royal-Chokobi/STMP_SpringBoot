@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Catenoid - SMTP</title>
+
+    <!-- Custom fonts for this template -->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="/js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/frame.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/basic.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=6zkuwr0hv0jn4x4nfgfcon4woaacn5nkdenitw1eyjeewldf"></script>
+    <!--<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=6zkuwr0hv0jn4x4nfgfcon4woaacn5nkdenitw1eyjeewldf"></script>-->
+    <script>
+        tinymce.init({
+            selector: 'textarea#catenoidMailForm',
+            height: 930,
+            width: 1200,
+            menubar: false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tiny.cloud/css/codepen.min.css'
+            ]
+        });
+
+        var sendTextarea = function () {
+
+            var mailForm = tinymce.activeEditor.getContent();
+            //  console.log(mailForm);
+            $.ajax({
+                url: "/sendMail",
+                // processData: false,
+                // contentType: "text/html;charset=utf-8",
+                contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                dataType: 'JSON',
+                data: { mailForm : mailForm},
+                type: 'POST',
+                success: function(retval){
+                    //console.log(retval);
+                    alert(retval.message);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body id="page-top">
+<div class=" header">
+    <div class="container-fluid h-100">
+        <div class="row align-items-center justify-content-between h-100">
+            <div class="col text-right">
+                <img title="Catenoid Logo" src="https://catenoid.net/wp-content/uploads/2018/05/Catenoid_logo_light2.png" alt="Catenoid Logo" width="180" height="60"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Customer">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="glyphicon glyphicon-envelope"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Catenoid<br/>SMTP System</div>
+        </a>
+        <div class="sidebar-heading">
+            Menu
+        </div>
+        <hr class="sidebar-divider d-none d-md-block" id="sidebarMenu">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container-fluid">
+                <h1 class="h3 mb-2 text-gray-800">메일 작성</h1>
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                             <textarea id="catenoidMailForm">
+<div id=":1b7" class="Am Al editable LW-avf" hidefocus="true" aria-label="메일 본문" g_editable="true" role="textbox" aria-multiline="true" contenteditable="true" tabindex="1" style="direction: ltr; min-height: 297px;" itacorner="6,7:1,1,0,0">
+    <p style="text-align: center; background-color: #1b96ed;">
+            <img title="Catenoid Logo" src="https://catenoid.net/wp-content/uploads/2018/05/Catenoid_logo_light2.png" alt="Catenoid Logo" width="200" height="80"/>
+        </p>
+    <h3 class=" " style="box-sizing: border-box; break-after: avoid-page; break-inside: avoid; font-size: 1.5em; margin-top: 1rem; margin-bottom: 1rem; line-height: 1.43; cursor: text; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;">
+        <span class="md-expand" style="box-sizing: border-box;">SDK Update Issue</span>
+    </h3>
+    <p class="" style="box-sizing: border-box; orphans: 4; margin: 0.8em 0px; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+        <span class="" style="box-sizing: border-box;">여기에 작성해주세요~! 없을시 해당 내용 삭제</span>
+    </p>
+    <h3 class="" style="box-sizing: border-box; break-after: avoid-page; break-inside: avoid; font-size: 1.5em; margin-top: 1rem; margin-bottom: 1rem; line-height: 1.43; cursor: text; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;">
+        <span class="" style="box-sizing: border-box;">Android SDK 적용사항</span>
+    </h3>
+    <ul class="ul-list" style="box-sizing: border-box; margin: 0.8em 0px; padding-left: 30px; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+        <li class="md-list-item" style="box-sizing: border-box; margin: 0px;">
+            <p class="" style="box-sizing: border-box; orphans: 4; margin: 0px 0px 0.5rem; white-space: pre-wrap;">
+                <span class="" style="box-sizing: border-box;">적용사항1</span>
+            </p>
+        </li>
+        <li class="md-list-item" style="box-sizing: border-box; margin: 0px;">
+            <p class="" style="box-sizing: border-box; orphans: 4; margin: 0px 0px 0.5rem; white-space: pre-wrap;">
+                <span class="" style="box-sizing: border-box;">적용사항2</span>
+            </p>
+        </li>
+        <li class="md-list-item" style="box-sizing: border-box; margin: 0px;">
+            <p class="" style="box-sizing: border-box; orphans: 4; margin: 0px 0px 0.5rem; white-space: pre-wrap;">
+                <span class="md-expand" style="box-sizing: border-box;">적용사항3</span>
+            </p>
+        </li>
+    </ul>
+    <h3 class="" style="box-sizing: border-box; break-after: avoid-page; break-inside: avoid; font-size: 1.5em; margin-top: 1rem; margin-bottom: 1rem; line-height: 1.43; cursor: text; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;">
+        <span class="" style="box-sizing: border-box;">IOS SDK 적용사항</span>
+    </h3>
+    <ul class="ul-list" style="box-sizing: border-box; margin: 0.8em 0px; padding-left: 30px; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+        <li class="md-list-item" style="box-sizing: border-box; margin: 0px;">
+            <p class="" style="box-sizing: border-box; orphans: 4; margin: 0px 0px 0.5rem; white-space: pre-wrap;">
+                <span class="" style="box-sizing: border-box;">적용사항1</span>
+            </p>
+        </li>
+        <li class="md-list-item" style="box-sizing: border-box; margin: 0px;">
+            <p class="" style="box-sizing: border-box; orphans: 4; margin: 0px 0px 0.5rem; white-space: pre-wrap;">
+                <span style="box-sizing: border-box;">적용사항2</span>
+            </p>
+        </li>
+        <li class="md-list-item" style="box-sizing: border-box; margin: 0px;">
+            <p class="" style="box-sizing: border-box; orphans: 4; margin: 0px 0px 0.5rem; white-space: pre-wrap;">
+                <span class="" style="box-sizing: border-box;">적용사항3</span>
+            </p>
+        </li>
+    </ul>
+    <h3 class="" style="box-sizing: border-box; break-after: avoid-page; break-inside: avoid; font-size: 1.5em; margin-top: 1rem; margin-bottom: 1rem; line-height: 1.43; cursor: text; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;">
+        <span class="" style="box-sizing: border-box;">Android and IOS SDK Version Table</span>
+    </h3>
+    <figure class="" style="box-sizing: border-box; margin: 1.2em 0px; overflow-x: auto; padding: 0px; cursor: default; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+        <table class="" style="box-sizing: border-box; border-collapse: collapse; border-spacing: 0px; width: 800px; overflow: auto; break-inside: auto; white-space: pre-wrap; cursor: text; padding: 0px; word-break: initial; margin: 0px;">
+            <thead style="box-sizing: border-box; background-color: rgb(248, 248, 248);">
+            <tr class="" style="box-sizing: border-box; break-inside: avoid; break-after: auto; border: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px;">
+                <th style="box-sizing: border-box; padding: 6px 13px; border-width: 1px 1px 0px; border-bottom-style: initial; border-bottom-color: initial; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; text-align: left; margin: 0px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 307px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">SDK Version</span>
+                    </span>
+                </th>
+                <th style="box-sizing: border-box; padding: 6px 13px; border-width: 1px 1px 0px; border-bottom-style: initial; border-bottom-color: initial; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; text-align: left; margin: 0px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 220px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">Android</span>
+                    </span>
+                </th>
+                <th style="box-sizing: border-box; padding: 6px 13px; border-width: 1px 1px 0px; border-bottom-style: initial; border-bottom-color: initial; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; text-align: left; margin: 0px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 191px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">IOS</span>
+                    </span>
+                </th>
+            </tr>
+            </thead>
+            <tbody style="box-sizing: border-box;">
+            <tr class="" style="box-sizing: border-box; break-inside: avoid; break-after: auto; border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px;">
+                <td style="box-sizing: border-box; padding: 6px 13px; border: 1px solid rgb(223, 226, 229); min-width: 80px; background-color: #f8f8f8;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 307px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">Now ver</span>
+                    </span>
+                </td>
+                <td style="box-sizing: border-box; padding: 6px 13px; border: 1px solid rgb(223, 226, 229); min-width: 80px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 220px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">- 작성 -</span>
+                    </span>
+                </td>
+                <td style="box-sizing: border-box; padding: 6px 13px; border: 1px solid rgb(223, 226, 229); min-width: 80px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 191px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">- 작성 -</span>
+                    </span>
+                </td>
+            </tr>
+             <tr class="" style="box-sizing: border-box; break-inside: avoid; break-after: auto; border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px;">
+                <td style="box-sizing: border-box; padding: 6px 13px; border: 1px solid rgb(223, 226, 229); min-width: 80px; background-color: #f8f8f8;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 307px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">Before ver</span>
+                    </span>
+                </td>
+                <td style="box-sizing: border-box; padding: 6px 13px; border: 1px solid rgb(223, 226, 229); min-width: 80px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 220px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">- DB -</span>
+                    </span>
+                </td>
+                <td style="box-sizing: border-box; padding: 6px 13px; border: 1px solid rgb(223, 226, 229); min-width: 80px;">
+                    <span class="" style="box-sizing: border-box; display: inline-block; min-width: 4ch; width: 191px; min-height: 10px;">
+                        <span style="box-sizing: border-box;">- DB -</span>
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </figure>
+    <p class="" style="box-sizing: border-box; orphans: 4; margin: 0.8em 0px; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+        <span class="" style="box-sizing: border-box;"> </span>
+    </p>
+    <p class=" " style="box-sizing: border-box; orphans: 4; margin: 0.8em 0px; white-space: pre-wrap; width: inherit; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Clear Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+        <span class="" style="box-sizing: border-box;">항상 더 좋은 서비스로 다가가겠습니다.</span>
+        <br/>
+        <span class="" style="box-sizing: border-box;">감사합니다.</span>
+    </p>
+        <p style="text-align: center; background-color: #1b96ed; height: 80px; color: white; font-size: 12px;">
+            <br/>
+TEL. 1544-4367<br/>
+            13F, Yeonbong Bldg., 416, Teheran-ro, Gangnam-gu, Seoul, Korea (06193) CATENOID, INC.<br/>
+         ⓒ2017 CATENOID, Inc. All Right Reserved
+        </p>
+    </div>
+    </textarea>
+                            <a href="javascript:;" class="button" onclick="sendTextarea();">메일전송</a>
+                            <button type="button" id="btn-update-content" class="m-btn m-btn-primary"><i class="glyphicon glyphicon-envelope"></i>전송등록</button>
+                            <button type="button" id="btn-delete-content" class="m-btn m-btn-danger" ><i class="glyphicon glyphicon-remove"></i>Cancle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>ⓒ2017 CATENOID, Inc. All Right Reserved</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<!-- modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalLabel"></h3>
+            </div>
+            <div class="modal-body">
+                <table  class="table table-hover" id="modalTable">
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="setCodeData();">적용</button>
+                <button type="button" class="btn btn-secondary" id="modalClose" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

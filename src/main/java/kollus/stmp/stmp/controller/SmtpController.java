@@ -2,6 +2,7 @@ package kollus.stmp.stmp.controller;
 
 import kollus.stmp.stmp.component.ScheduleComponent;
 import kollus.stmp.stmp.component.SendMailComponent;
+import kollus.stmp.stmp.component.CustomListComponent;
 import kollus.stmp.stmp.dao.DbCustomerEntity;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/")
@@ -25,6 +23,8 @@ public class SmtpController {
 
     @Autowired
     private SendMailComponent SendMailComponent;
+    @Autowired
+    private CustomListComponent customListComponent;
     @Autowired
     private ScheduleComponent ScheduleComponent;
     @Autowired
@@ -41,14 +41,25 @@ public class SmtpController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value = {"/tb"}, method = RequestMethod.GET)
+   /* @RequestMapping(value = {"/Customer"}, method = RequestMethod.GET)
     public ModelAndView hello(Model model, @RequestParam(value="name", required=false, defaultValue="") String name) {
-        model.addAttribute("name", name);
-        return new ModelAndView("tables");
+
+        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
+        model.addAttribute("tbdata", tb_data);
+
+        return new ModelAndView("Customer");
+    }*/
+    @RequestMapping(value = {"/customer"}, method = RequestMethod.GET)
+    public ModelAndView customerList(Model model) {
+
+        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
+        model.addAttribute("tbdata", tb_data);
+
+        return new ModelAndView("Customer");
     }
 
-    @RequestMapping(value = {"/smtp"}, method = RequestMethod.GET)
-    public ModelAndView test() throws Exception{
+    @RequestMapping(value = {"/mailpage"}, method = RequestMethod.GET)
+    public ModelAndView mailpage() throws Exception{
         System.out.println("===============inSite Spring by Jae Yoon Lee - Get smtp=======================");
 
        // SendMailComponent.getHTMLMailForm();
@@ -65,7 +76,7 @@ public class SmtpController {
         }
         System.out.println("----------------------------");*/
 
-        return new ModelAndView("test");
+        return new ModelAndView("Mailpage");
     }
 
     @ResponseBody
