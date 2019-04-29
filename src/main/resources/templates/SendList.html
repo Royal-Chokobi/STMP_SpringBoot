@@ -81,12 +81,18 @@
                   <tbody  th:each="dt: ${tbdata}">
                     <tr>
                       <td th:text="${dt.group_code}"></td>
-                      <td th:text="${dt.email_title}" th:onclick="|javascript:test('${dt.reservation_code}')|"></td>
+                      <td>
+                          <span class="td_div " th:onclick="|javascript:test('${dt.reservation_code}')|" data-target="#modal" data-toggle="modal"  th:text="${dt.email_title}"></span>
+                          <div class="float-right">
+                              <span class="tag tag__pc tooltip-message td_div" >상세보기</span>
+                          </div>
+                          <div ></div>
+                      </td>
                       <td th:text="${dt.reservation_date}"></td>
                       <td th:text="${dt.sys_send_date}"></td>
                       <td th:text="${dt.state}"></td>
                       <td>
-                        <span class="tag tag__pc tooltip-message td_div" data-original-title="전송취소">전송취소</span>
+                          <span class="tag tag__mobile tooltip-message td_div" >전송취소</span>
                       </td>
                     </tr>
                   </tbody>

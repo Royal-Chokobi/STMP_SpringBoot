@@ -54,7 +54,7 @@ public class EmailJobSchedulerController {
                 //  System.out.println("now : "+LocalDateTime.now());
                 String sendTitle = "["+items.get("customerNM")+"]"+emailTitle;
                 String sendBody = scheduleComponent.getHTMLMailForm(textBody);
-                JobDetail jobDetail = scheduleComponent.buildJobDetail(items.get("customerEmail"), sendTitle, sendBody, groupCode);
+                JobDetail jobDetail = scheduleComponent.buildJobDetail(items.get("customerEmail"), sendTitle, sendBody, groupCode, dateTime);
                 Trigger trigger = scheduleComponent.buildJobTrigger(jobDetail, dateTime);
                 scheduler.scheduleJob(jobDetail, trigger);
             }

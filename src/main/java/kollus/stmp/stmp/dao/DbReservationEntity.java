@@ -19,9 +19,9 @@ public class DbReservationEntity {
     @Column(name="customer_address")
     private String customer_address;
     @Column(name="reservation_date")
-    private String reservation_date;
+    private Date reservation_date;
     @Column(name="sys_send_date")
-    private String sys_send_date;
+    private Date sys_send_date;
     @Column(name="state")
     private String state;
     @Basic(optional = false)
@@ -63,19 +63,19 @@ public class DbReservationEntity {
         this.customer_address = customer_address;
     }
 
-    public String getReservation_date() {
+    public Date getReservation_date() {
         return reservation_date;
     }
 
-    public void setReservation_date(String reservation_date) {
+    public void setReservation_date(Date reservation_date) {
         this.reservation_date = reservation_date;
     }
 
-    public String getSys_send_date() {
+    public Date getSys_send_date() {
         return sys_send_date;
     }
 
-    public void setSys_send_date(String sys_send_date) {
+    public void setSys_send_date(Date sys_send_date) {
         this.sys_send_date = sys_send_date;
     }
 

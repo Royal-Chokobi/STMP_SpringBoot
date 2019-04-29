@@ -18,7 +18,7 @@ public interface DbReservationRepository extends JpaRepository<DbReservationEnti
     @Query(value = "select CONCAT('G',(SELECT LPAD(COUNT(*)+1,5,'0') FROM smtp_reservation)) AS group_code", nativeQuery = true)
     String getGroupCode();
 
-    @Query(value = "SELECT res.reservation_code, res.group_code, res.email_title, res.reservation_date, res.sys_send_date ,res.state FROM smtp_reservation res order by res.sysdate desc", nativeQuery = true)
-    List<Object[]> getSendList();
+    @Query(value = "SELECT * FROM smtp_reservation res order by res.sysdate desc", nativeQuery = true)
+    List<DbReservationEntity> getSendList();
 
 }

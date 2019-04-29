@@ -27,20 +27,22 @@ public class SendMailComponent {
 
     public SendMailComponent(){}
 
-    public List<HashMap<String, String>> getEmailSendList(){
+    public List<DbReservationEntity> getEmailSendList(){
 
-        List<Object[]> resultList = dbReservationRepository.getSendList();
-        List<HashMap<String, String>> cmlist = new ArrayList<>();
-/*
+        List<DbReservationEntity> resultList = dbReservationRepository.getSendList();
+       /* List<HashMap<String, String>> sendlist = new ArrayList<>();
         for (Object[] borderTypes: resultList) {
             HashMap<String, String> results = new HashMap<String, String>();
-            results.put("customerCode", (String)borderTypes[0]);
-            results.put("customerNM", (String)borderTypes[1]);
-            results.put("customerEmail", (String)borderTypes[2]);
-            cmlist.add(results);
+            results.put("reservation_code", (String)borderTypes[0]);
+            results.put("group_code", (String)borderTypes[1]);
+            results.put("email_title", (String)borderTypes[2]);
+            results.put("reservation_date", borderTypes[3].toString());
+            results.put("sys_send_date", borderTypes[4].toString());
+            results.put("state", (String)borderTypes[5]);
+            sendlist.add(results);
         }*/
 
-        return cmlist;
+        return resultList;
     }
 
     public String getHTMLMailForm(String textBody){

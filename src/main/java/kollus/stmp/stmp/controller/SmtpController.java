@@ -3,6 +3,7 @@ package kollus.stmp.stmp.controller;
 import kollus.stmp.stmp.component.CustomListComponent;
 import kollus.stmp.stmp.component.SendMailComponent;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
+import kollus.stmp.stmp.dao.DbReservationEntity;
 import kollus.stmp.stmp.dao.DbReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,7 @@ public class SmtpController {
     @RequestMapping(value = {"/sendlist"}, method = RequestMethod.GET)
     public ModelAndView sendList(Model model) {
 
-        List<Object[]> tb_data= SendMailComponent.getEmailSendList();
+        List<DbReservationEntity> tb_data = SendMailComponent.getEmailSendList();
         model.addAttribute("tbdata", tb_data);
         return new ModelAndView("SendList");
     }
