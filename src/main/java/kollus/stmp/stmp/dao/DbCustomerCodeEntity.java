@@ -1,6 +1,7 @@
 package kollus.stmp.stmp.dao;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name = "customer_code")
 @Table(name = "CUSTOMER_CODE")
@@ -13,8 +14,10 @@ public class DbCustomerCodeEntity {
     private String customer_key;
     @Column(name="customer")
     private String customer;
-    @Column(name="sysdate")
-    private String sysdate;
+    @Basic(optional = false)
+    @Column(name = "sysdate", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sysdate;
 
     /*@OneToOne
     @JoinTable(name = "customer_information",
@@ -48,11 +51,11 @@ public class DbCustomerCodeEntity {
         this.customer = customer;
     }
 
-    public String getSysdate() {
+    public Date getSysdate() {
         return sysdate;
     }
 
-    public void setSysdate(String sysdate) {
+    public void setSysdate(Date sysdate) {
         this.sysdate = sysdate;
     }
 
@@ -62,7 +65,7 @@ public class DbCustomerCodeEntity {
                 "index=" + index +
                 ", customer_key='" + customer_key + '\'' +
                 ", customer='" + customer + '\'' +
-                ", sysdate='" + sysdate + '\'' +
+                ", sysdate=" + sysdate +
                 '}';
     }
 }

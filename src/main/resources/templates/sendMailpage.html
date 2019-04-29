@@ -13,50 +13,15 @@
     <!-- Custom fonts for this template -->
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=6zkuwr0hv0jn4x4nfgfcon4woaacn5nkdenitw1eyjeewldf"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/mailpage.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/frame.min.css">
     <link rel="stylesheet" type="text/css" href="/css/basic.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=6zkuwr0hv0jn4x4nfgfcon4woaacn5nkdenitw1eyjeewldf"></script>
     <!--<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=6zkuwr0hv0jn4x4nfgfcon4woaacn5nkdenitw1eyjeewldf"></script>-->
-    <script>
-        tinymce.init({
-            selector: 'textarea#catenoidMailForm',
-            height: 930,
-            width: 1200,
-            menubar: false,
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
-            ],
-            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-            content_css: [
-                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                '//www.tiny.cloud/css/codepen.min.css'
-            ]
-        });
 
-        var sendTextarea = function () {
-
-            var mailForm = tinymce.activeEditor.getContent();
-            //  console.log(mailForm);
-            $.ajax({
-                url: "/sendMail",
-                // processData: false,
-                // contentType: "text/html;charset=utf-8",
-                contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-                dataType: 'JSON',
-                data: { mailForm : mailForm},
-                type: 'POST',
-                success: function(retval){
-                    //console.log(retval);
-                    alert(retval.message);
-                }
-            });
-        }
-    </script>
 </head>
 
 <body id="page-top">
@@ -96,6 +61,11 @@
             <div class="container-fluid">
                 <h1 class="h3 mb-2 text-gray-800">메일 작성</h1>
                 <div class="card shadow mb-4">
+                    <div class="form-group label-form-group controls mb-0">
+                        <label>Email title</label>
+                        <input class="form-control" id="emailTitle" type="text" placeholder="Email title" >
+                        <p class="help-block text-danger"></p>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                              <textarea id="catenoidMailForm">
@@ -227,9 +197,9 @@ TEL. 1544-4367<br/>
         </p>
     </div>
     </textarea>
-                            <a href="javascript:;" class="button" onclick="sendTextarea();">메일전송</a>
-                            <button type="button" id="btn-update-content" class="m-btn m-btn-primary"><i class="glyphicon glyphicon-envelope"></i>전송등록</button>
-                            <button type="button" id="btn-delete-content" class="m-btn m-btn-danger" ><i class="glyphicon glyphicon-remove"></i>Cancle</button>
+                            <br/>
+                            <button type="button" id="btn-update-content" class="m-btn m-btn-primary" onclick="sendTextarea();"><i class="glyphicon glyphicon-envelope"></i>전송등록</button>
+                            <button type="button" id="btn-delete-content" class="m-btn m-btn-danger"  onclick="sendClose();"><i class="glyphicon glyphicon-remove"></i>Cancle</button>
                         </div>
                     </div>
                 </div>
@@ -250,27 +220,6 @@ TEL. 1544-4367<br/>
 
 </div>
 <!-- End of Page Wrapper -->
-
-
-<!-- modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modalLabel"></h3>
-            </div>
-            <div class="modal-body">
-                <table  class="table table-hover" id="modalTable">
-
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="setCodeData();">적용</button>
-                <button type="button" class="btn btn-secondary" id="modalClose" data-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 

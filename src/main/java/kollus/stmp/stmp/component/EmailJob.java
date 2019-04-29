@@ -1,5 +1,6 @@
 package kollus.stmp.stmp.component;
 
+import kollus.stmp.stmp.dao.DbReservationRepository;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -12,18 +13,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Properties;
 
 @Component
 public class EmailJob extends QuartzJobBean {
@@ -31,9 +25,10 @@ public class EmailJob extends QuartzJobBean {
 
     @Autowired
     private JavaMailSender mailSender;
-
     @Autowired
     private MailProperties mailProperties;
+    @Autowired
+    private DbReservationRepository dbReservationRepository;
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -43,24 +38,24 @@ public class EmailJob extends QuartzJobBean {
         String subject = jobDataMap.getString("subject");
         String body = jobDataMap.getString("body");
         String recipientEmail = jobDataMap.getString("email");
-
-        sendMail(mailProperties.getUsername(), recipientEmail, subject, body);
+        String resCode = jobDataMap.getString("resCode");
+        sendMail(mailProperties.getUsername(), recipientEmail, subject, body, resCode);
     }
 
-    private void sendMail(String fromEmail, String toEmail, String subject, String body) {
+    private void sendMail(String fromEmail, String toEmail, String subject, String body, String resCode) {
         try {
             logger.info("Sending Email to {}", toEmail);
             MimeMessage message = mailSender.createMimeMessage();
 
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, StandardCharsets.UTF_8.toString());
             messageHelper.setSubject(subject);
-            body += body+" / 실제 발송시간 : "+ LocalDateTime.now();
             messageHelper.setText(body, true);
             messageHelper.setFrom(fromEmail);
             messageHelper.setTo(InternetAddress.parse(toEmail));
             //messageHelper.setTo(toEmail);
-
             mailSender.send(message);
+
+            dbReservationRepository.updateReservationData(resCode,"Y");
             System.out.println("send time : "+ LocalDateTime.now());
         } catch (MessagingException ex) {
             logger.error("Failed to send email to {}", toEmail);

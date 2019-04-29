@@ -19,18 +19,30 @@ public class SendMailComponent {
     @Autowired
     private KollusConfig kollusConfig;
     @Autowired
-    private DbtestRepository dbtestRepository;
-    @Autowired
     private DbCustomerRepository dbCustomerRepository;
     @Autowired
     private DbCustomerCodeRepository dbCustomerCodeRepository;
+    @Autowired
+    private DbReservationRepository dbReservationRepository;
 
     public SendMailComponent(){}
 
-    public void test123(){
-        List<DbtestEntity> items = dbtestRepository.findByRange();
-        System.out.println(items);
+    public List<HashMap<String, String>> getEmailSendList(){
+
+        List<Object[]> resultList = dbReservationRepository.getSendList();
+        List<HashMap<String, String>> cmlist = new ArrayList<>();
+/*
+        for (Object[] borderTypes: resultList) {
+            HashMap<String, String> results = new HashMap<String, String>();
+            results.put("customerCode", (String)borderTypes[0]);
+            results.put("customerNM", (String)borderTypes[1]);
+            results.put("customerEmail", (String)borderTypes[2]);
+            cmlist.add(results);
+        }*/
+
+        return cmlist;
     }
+
     public String getHTMLMailForm(String textBody){
 
         String mailForm = "<div style = 'width: 900px;'>";

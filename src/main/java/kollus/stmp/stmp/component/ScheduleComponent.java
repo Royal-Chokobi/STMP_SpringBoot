@@ -1,30 +1,58 @@
 package kollus.stmp.stmp.component;
 
-import kollus.stmp.stmp.KollusConfig;
-import kollus.stmp.stmp.dao.*;
+import kollus.stmp.stmp.dao.DbReservationEntity;
+import kollus.stmp.stmp.dao.DbReservationRepository;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class ScheduleComponent{
 
     @Autowired
-    private DbCustomerCodeRepository dbCustomerCodeRepository;
+    private DbReservationRepository dbReservationRepository;
 
-    public JobDetail buildJobDetail() {
+    public String getHTMLMailForm(String textBody){
+
+        String mailForm = "<div style = 'width: 900px;'>";
+        mailForm+=textBody;
+        mailForm+="</div>";
+
+        return mailForm;
+    }
+
+    public String getGroupCodeForm(){
+        return dbReservationRepository.getGroupCode();
+    }
+
+    public JobDetail buildJobDetail(String email, String subject, String body, String groupCode) {
+
+        UUID uuid = UUID.randomUUID();
+        //String jobKeyName = Long.toString(uuid.getMostSignificantBits(), 36) + Long.toString(uuid.getLeastSignificantBits(), 36);
+        String jobKeyName = Long.toString(uuid.getLeastSignificantBits(), 36).replace('-', 'C');
 
         JobDataMap jobDataMap = new JobDataMap();
-        jobDataMap.put("email", "jaeyoon.lee@catenoid.net,ollehing@gmail.com,se@catenoid.net,sw.na@catenoid.net");
-        jobDataMap.put("subject", "예약 2건 메일 테스트입니다.");
-        jobDataMap.put("body", "이메일은 1분 후 전송됩니다. 2개 날아가야함./ 예약 접수 시간 now : ");
+        jobDataMap.put("email", email);
+        jobDataMap.put("subject", subject);
+        jobDataMap.put("body", body);
+        jobDataMap.put("resCode", jobKeyName);
+
+        DbReservationEntity dbReservationEntity = new DbReservationEntity();
+        dbReservationEntity.setEmail_title(subject);
+        dbReservationEntity.setCustomer_address(email);
+        dbReservationEntity.setEmail_form(body);
+        dbReservationEntity.setGroup_code(groupCode);
+        dbReservationEntity.setReservation_code(jobKeyName);
+        dbReservationEntity.setState("R");
+
+        dbReservationRepository.save(dbReservationEntity);
 
         return JobBuilder.newJob(EmailJob.class)
-                .withIdentity(UUID.randomUUID().toString(), "email-jobs")
+                .withIdentity(jobKeyName, "email-jobs")
                 .withDescription("Send Email Job")
                 .usingJobData(jobDataMap)
                 .storeDurably()

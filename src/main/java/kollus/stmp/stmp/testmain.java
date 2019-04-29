@@ -2,17 +2,28 @@ package kollus.stmp.stmp;
 
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class testmain {
 
     public static void main(String[] args) throws Exception{
-
+        UUID uuid = UUID.randomUUID();
+        //String jobKeyName = Long.toString(uuid.getMostSignificantBits(), 36) + Long.toString(uuid.getLeastSignificantBits(), 36);
+        String jobKeyName = Long.toString(uuid.getLeastSignificantBits(), 36);
+        System.out.println(jobKeyName);
         System.out.println(LocalDateTime.now());
         System.out.println(LocalDateTime.now().plusMinutes(5));
 
+        Date from = new Date();
 
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyMMddHHmmss");
+
+        String to = transFormat.format(from);
+        System.out.println(LocalDateTime.now().toString());
         /*Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         scheduler.start();
 

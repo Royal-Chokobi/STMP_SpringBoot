@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Catenoid - SMTP</title>
+
+  <!-- Custom fonts for this template -->
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="/js/index.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/frame.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/basic.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+  <script type="text/javascript">
+    function test(c_code, c_name) {
+
+        $('#modalLabel').html(c_name);
+    }
+  </script>
+
+</head>
+
+<body id="page-top">
+  <div class=" header">
+    <div class="container-fluid h-100">
+      <div class="row align-items-center justify-content-between h-100">
+        <div class="col text-right">
+          <img title="Catenoid Logo" src="https://catenoid.net/wp-content/uploads/2018/05/Catenoid_logo_light2.png" alt="Catenoid Logo" width="180" height="60"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Customer">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="glyphicon glyphicon-envelope"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Catenoid<br/>SMTP System</div>
+      </a>
+      <div class="sidebar-heading">
+        Menu
+      </div>
+      <hr class="sidebar-divider d-none d-md-block" id="sidebarMenu">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+        <div class="container-fluid">
+          <h1 class="h3 mb-2 text-gray-800">고객사 리스트</h1>
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>전송 Group Code</th>
+                      <th>메일 제목</th>
+                      <th>예약 일자</th>
+                      <th>전송 일자</th>
+                      <th>State</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody  th:each="dt: ${tbdata}">
+                    <tr>
+                      <td th:text="${dt.group_code}"></td>
+                      <td th:text="${dt.email_title}" th:onclick="|javascript:test('${dt.reservation_code}')|"></td>
+                      <td th:text="${dt.reservation_date}"></td>
+                      <td th:text="${dt.sys_send_date}"></td>
+                      <td th:text="${dt.state}"></td>
+                      <td>
+                        <span class="tag tag__pc tooltip-message td_div" data-original-title="전송취소">전송취소</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>ⓒ2017 CATENOID, Inc. All Right Reserved</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+
+  <!-- modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalLabel"></h3>
+        </div>
+        <div class="modal-body">
+          <table  class="table table-hover" id="modalTable">
+
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="setCodeData();">적용</button>
+          <button type="button" class="btn btn-secondary" id="modalClose" data-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

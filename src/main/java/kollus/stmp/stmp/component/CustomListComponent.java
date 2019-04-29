@@ -1,27 +1,17 @@
 package kollus.stmp.stmp.component;
 
-import kollus.stmp.stmp.KollusConfig;
 import kollus.stmp.stmp.dao.DbCustomerCodeRepository;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
-import kollus.stmp.stmp.dao.DbtestEntity;
-import kollus.stmp.stmp.dao.DbtestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class CustomListComponent {
 
-    @Autowired
-    private DbtestRepository dbtestRepository;
     @Autowired
     private DbCustomerRepository dbCustomerRepository;
     @Autowired
@@ -30,8 +20,7 @@ public class CustomListComponent {
     public CustomListComponent(){}
 
     public void test123(){
-        List<DbtestEntity> items = dbtestRepository.findByRange();
-        System.out.println(items);
+
     }
 
     public List<HashMap<String, String>> getCustomerList(){
