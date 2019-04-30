@@ -15,10 +15,7 @@ public interface DbReservationRepository extends JpaRepository<DbReservationEnti
     @Query("UPDATE smtp_reservation res SET res.state = :state, res.sys_send_date = CURRENT_TIMESTAMP WHERE res.reservation_code = :reservation_code")
     Integer updateReservationData(@Param("reservation_code") String reservation_code, @Param("state") String state);
 
-    @Query(value = "select CONCAT('G',(SELECT LPAD(COUNT(*)+1,5,'0') FROM smtp_reservation)) AS group_code", nativeQuery = true)
-    String getGroupCode();
-
-    @Query(value = "SELECT * FROM smtp_reservation res order by res.sysdate desc", nativeQuery = true)
-    List<DbReservationEntity> getSendList();
+    @Query(value = "SELECT res FROM  smtp_reservation res WHERE res.group_code = :group_code AND res.state not in('C', 'Y')")
+    List<DbReservationEntity> getScheduleSendList(@Param("group_code") String group_code);
 
 }

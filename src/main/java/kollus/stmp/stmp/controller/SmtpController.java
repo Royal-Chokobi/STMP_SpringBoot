@@ -3,6 +3,7 @@ package kollus.stmp.stmp.controller;
 import kollus.stmp.stmp.component.CustomListComponent;
 import kollus.stmp.stmp.component.SendMailComponent;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
+import kollus.stmp.stmp.dao.DbGroupReservationEntity;
 import kollus.stmp.stmp.dao.DbReservationEntity;
 import kollus.stmp.stmp.dao.DbReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,7 @@ public class SmtpController {
 
     @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
-        /*List<DbCustomerEntity> items = DbCustomerRepository.selectCustomerInformation();
-        System.out.println(items);
-        for(DbCustomerEntity a : items){
-            System.out.println(a.getCustomer_email());
-        }*/
 
-        String aaa = dbReservationRepository.getGroupCode();
-        System.out.println(aaa);
         return new ModelAndView("index");
     }
 
@@ -63,8 +57,9 @@ public class SmtpController {
     @RequestMapping(value = {"/sendlist"}, method = RequestMethod.GET)
     public ModelAndView sendList(Model model) {
 
-        List<DbReservationEntity> tb_data = SendMailComponent.getEmailSendList();
+        List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailSendList();
         model.addAttribute("tbdata", tb_data);
+
         return new ModelAndView("SendList");
     }
 

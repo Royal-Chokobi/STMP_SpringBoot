@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,25 +37,25 @@ public class EmailJobSchedulerController {
     @RequestMapping(value = {"/sendMail"}, method = RequestMethod.POST)
     public HashMap<String, Object> scheduleEmail(HttpServletRequest request) throws Exception {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        request.setCharacterEncoding("utf-8");
-        String textBody = request.getParameter("mailForm");
-        String emailTitle = request.getParameter("title");
-        String groupCode = scheduleComponent.getGroupCodeForm();
 
         try {
+            request.setCharacterEncoding("utf-8");
+            String textBody = request.getParameter("mailForm");
+            String emailTitle = request.getParameter("title");
 
+            String groupCode = scheduleComponent.getGroupCodeForm();
+            String sendBody = scheduleComponent.getHTMLMailForm(textBody);
             List<HashMap<String, String>> customerlist= customListComponent.getCustomerList();
 
-          //  ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Asia/Seoul"));
-            for(HashMap<String, String> items : customerlist){
-                ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now().plusSeconds(5), ZoneId.of("Asia/Seoul"));
-                //  System.out.println("now : "+LocalDateTime.now());
-                String sendTitle = "["+items.get("customerNM")+"]"+emailTitle;
-                String sendBody = scheduleComponent.getHTMLMailForm(textBody);
-                JobDetail jobDetail = scheduleComponent.buildJobDetail(items.get("customerEmail"), sendTitle, sendBody, groupCode, dateTime);
-                Trigger trigger = scheduleComponent.buildJobTrigger(jobDetail, dateTime);
-                scheduler.scheduleJob(jobDetail, trigger);
-            }
+            ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now().plusSeconds(5), ZoneId.of("Asia/Seoul"));
+
+            scheduleComponent.setGroupTableData(groupCode, emailTitle);
+            scheduleComponent.setReservationTableData(customerlist, groupCode, emailTitle, sendBody);
+
+            JobDetail jobDetail = scheduleComponent.buildJobDetail(groupCode);
+            Trigger trigger = scheduleComponent.buildJobTrigger(jobDetail, dateTime);
+            scheduler.scheduleJob(jobDetail, trigger);
+
             result.put("error", 0);
             result.put("message", "메일 전송 등록에 성공했습니다.");
 

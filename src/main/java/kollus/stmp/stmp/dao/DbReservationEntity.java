@@ -18,8 +18,6 @@ public class DbReservationEntity {
     private String email_form;
     @Column(name="customer_address")
     private String customer_address;
-    @Column(name="reservation_date")
-    private Date reservation_date;
     @Column(name="sys_send_date")
     private Date sys_send_date;
     @Column(name="state")
@@ -63,14 +61,6 @@ public class DbReservationEntity {
         this.customer_address = customer_address;
     }
 
-    public Date getReservation_date() {
-        return reservation_date;
-    }
-
-    public void setReservation_date(Date reservation_date) {
-        this.reservation_date = reservation_date;
-    }
-
     public Date getSys_send_date() {
         return sys_send_date;
     }
@@ -111,7 +101,6 @@ public class DbReservationEntity {
                 ", email_title='" + email_title + '\'' +
                 ", email_form='" + email_form + '\'' +
                 ", customer_address='" + customer_address + '\'' +
-                ", reservation_date='" + reservation_date + '\'' +
                 ", sys_send_date='" + sys_send_date + '\'' +
                 ", state='" + state + '\'' +
                 ", sysdate=" + sysdate +

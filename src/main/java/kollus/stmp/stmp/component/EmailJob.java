@@ -1,5 +1,7 @@
 package kollus.stmp.stmp.component;
 
+import kollus.stmp.stmp.dao.DbGroupReservationRepository;
+import kollus.stmp.stmp.dao.DbReservationEntity;
 import kollus.stmp.stmp.dao.DbReservationRepository;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
@@ -18,6 +20,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class EmailJob extends QuartzJobBean {
@@ -29,36 +32,43 @@ public class EmailJob extends QuartzJobBean {
     private MailProperties mailProperties;
     @Autowired
     private DbReservationRepository dbReservationRepository;
+    @Autowired
+    private DbGroupReservationRepository dbGroupReservationRepository;
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.info("Executing Job with key {}", jobExecutionContext.getJobDetail().getKey());
 
         JobDataMap jobDataMap = jobExecutionContext.getMergedJobDataMap();
-        String subject = jobDataMap.getString("subject");
-        String body = jobDataMap.getString("body");
-        String recipientEmail = jobDataMap.getString("email");
-        String resCode = jobDataMap.getString("resCode");
-        sendMail(mailProperties.getUsername(), recipientEmail, subject, body, resCode);
+        String groupCode = jobDataMap.getString("groupCode");
+        sendMail(mailProperties.getUsername(), groupCode);
     }
 
-    private void sendMail(String fromEmail, String toEmail, String subject, String body, String resCode) {
+    private void sendMail(String fromEmail, String groupCode) {
         try {
-            logger.info("Sending Email to {}", toEmail);
-            MimeMessage message = mailSender.createMimeMessage();
+            List<DbReservationEntity> sendData = dbReservationRepository.getScheduleSendList(groupCode);
 
-            MimeMessageHelper messageHelper = new MimeMessageHelper(message, StandardCharsets.UTF_8.toString());
-            messageHelper.setSubject(subject);
-            messageHelper.setText(body, true);
-            messageHelper.setFrom(fromEmail);
-            messageHelper.setTo(InternetAddress.parse(toEmail));
-            //messageHelper.setTo(toEmail);
-            mailSender.send(message);
+            for (DbReservationEntity item : sendData){
+                logger.info("Sending Email to {}", item.getCustomer_address());
 
-            dbReservationRepository.updateReservationData(resCode,"Y");
-            System.out.println("send time : "+ LocalDateTime.now());
+                MimeMessage message = mailSender.createMimeMessage();
+
+                MimeMessageHelper messageHelper = new MimeMessageHelper(message, StandardCharsets.UTF_8.toString());
+                messageHelper.setSubject(item.getEmail_title());
+                messageHelper.setText(item.getEmail_form(), true);
+                messageHelper.setFrom(fromEmail);
+                messageHelper.setTo(InternetAddress.parse(item.getCustomer_address()));
+                //messageHelper.setTo(toEmail);
+                mailSender.send(message);
+
+                dbReservationRepository.updateReservationData(item.getReservation_code(),"Y");
+                System.out.println("send time : "+ LocalDateTime.now());
+            }
+            dbGroupReservationRepository.updateGroupReservationData(groupCode,"Y");
+
+
         } catch (MessagingException ex) {
-            logger.error("Failed to send email to {}", toEmail);
+            logger.error("Failed to send email : "+groupCode);
         }
 
     }

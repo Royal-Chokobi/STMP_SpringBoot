@@ -24,24 +24,13 @@ public class SendMailComponent {
     private DbCustomerCodeRepository dbCustomerCodeRepository;
     @Autowired
     private DbReservationRepository dbReservationRepository;
+    @Autowired
+    private DbGroupReservationRepository dbGroupReservationRepository;
 
     public SendMailComponent(){}
 
-    public List<DbReservationEntity> getEmailSendList(){
-
-        List<DbReservationEntity> resultList = dbReservationRepository.getSendList();
-       /* List<HashMap<String, String>> sendlist = new ArrayList<>();
-        for (Object[] borderTypes: resultList) {
-            HashMap<String, String> results = new HashMap<String, String>();
-            results.put("reservation_code", (String)borderTypes[0]);
-            results.put("group_code", (String)borderTypes[1]);
-            results.put("email_title", (String)borderTypes[2]);
-            results.put("reservation_date", borderTypes[3].toString());
-            results.put("sys_send_date", borderTypes[4].toString());
-            results.put("state", (String)borderTypes[5]);
-            sendlist.add(results);
-        }*/
-
+    public List<DbGroupReservationEntity> getEmailSendList(){
+        List<DbGroupReservationEntity> resultList = dbGroupReservationRepository.getSendList();
         return resultList;
     }
 
