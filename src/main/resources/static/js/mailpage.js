@@ -1,3 +1,24 @@
+(function($) {
+    $(function() {
+        $("body").on("input propertychange", ".label-form-group", function(e) {
+            $(this).toggleClass("label-form-group-with-value", !!$(e.target).val());
+        }).on("focus", ".label-form-group", function() {
+            $(this).addClass("label-form-group-with-focus");
+        }).on("blur", ".label-form-group", function() {
+            $(this).removeClass("label-form-group-with-focus");
+        });
+    });
+    $(function(){
+        $('.input-group.date').datepicker({
+            calendarWeeks: false,
+            todayHighlight: true,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: "kr"
+        });
+    });
+})(jQuery);
+
 tinymce.init({
     selector: 'textarea#catenoidMailForm',
     height: 930,
@@ -19,6 +40,7 @@ var sendTextarea = function () {
 
     var mailForm = tinymce.activeEditor.getContent();
     var emailTitle = $("#emailTitle").val();
+    var resDate = $("#resDatepicker").val();
 
     if(!emailTitle){
         alert("제목을 입력하세요.");
@@ -30,17 +52,24 @@ var sendTextarea = function () {
         return false;
     }
 
-    $.ajax({
-        url: "/sendMail",
-        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-        dataType: 'JSON',
-        data: { mailForm : mailForm, title:emailTitle},
-        type: 'POST',
-        success: function(retval){
-            //console.log(retval);
-            alert(retval.message);
-        }
-    });
+    if(document.getElementById("reservationCheck").checked && !resDate){
+        alert("전송 예약일을 입력하세요.");
+        return false;
+    }
+
+    if (confirm("작성한 메일을 등록하시겠습니까?")) {
+        $.ajax({
+            url: "/sendMail",
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            dataType: 'JSON',
+            data: { mailForm : mailForm, title:emailTitle, resDate: resDate},
+            type: 'POST',
+            success: function(retval){
+                //console.log(retval);
+                alert(retval.message);
+            }
+        });
+    }
 };
 
 var sendClose = function () {
@@ -49,15 +78,12 @@ var sendClose = function () {
     }
 };
 
-(function($) {
-    $(function() {
-        $("body").on("input propertychange", ".label-form-group", function(e) {
-            $(this).toggleClass("label-form-group-with-value", !!$(e.target).val());
-        }).on("focus", ".label-form-group", function() {
-            $(this).addClass("label-form-group-with-focus");
-        }).on("blur", ".label-form-group", function() {
-            $(this).removeClass("label-form-group-with-focus");
-        });
-    });
-
-})(jQuery);
+var showpicker = function () {
+    if(document.getElementById("reservationCheck").checked){
+        $(".date > input").val("");
+        $(".date").addClass("hide");
+    }else{
+        $(".date > input").val("");
+        $(".date").removeClass("hide");
+    }
+};

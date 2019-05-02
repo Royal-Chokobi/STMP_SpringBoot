@@ -63,6 +63,16 @@ public class SmtpController {
         return new ModelAndView("SendList");
     }
 
+    @ResponseBody
+    @RequestMapping(value = {"/getSendMailDetail"}, method = RequestMethod.POST)
+    public HashMap<String, String> sendMailDetail( HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String group_code = request.getParameter("groupCdoe");
+        System.out.println(group_code);
+        HashMap<String, String> tb_data = SendMailComponent.getSendMailDetail(group_code);
+        return tb_data;
+    }
+
     @RequestMapping(value = {"/sendmailpage"}, method = RequestMethod.GET)
     public ModelAndView mailpage() throws Exception{
         System.out.println("===============inSite Spring by Jae Yoon Lee - Get smtp=======================");

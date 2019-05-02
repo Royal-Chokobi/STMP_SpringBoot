@@ -18,4 +18,7 @@ public interface DbReservationRepository extends JpaRepository<DbReservationEnti
     @Query(value = "SELECT res FROM  smtp_reservation res WHERE res.group_code = :group_code AND res.state not in('C', 'Y')")
     List<DbReservationEntity> getScheduleSendList(@Param("group_code") String group_code);
 
+    @Query(value = "SELECT GROUP_CONCAT(tb_res.customer separator ',') AS customer, tb_res.email_form FROM smtp_reservation tb_res WHERE tb_res.group_code = :group_code", nativeQuery = true)
+    List<Object[]> getSendMailDetailData(@Param("group_code") String group_code);
+
 }

@@ -33,6 +33,15 @@ public class SendMailComponent {
         List<DbGroupReservationEntity> resultList = dbGroupReservationRepository.getSendList();
         return resultList;
     }
+    public HashMap<String, String> getSendMailDetail(String groupCode){
+        List<Object[]> resultList = dbReservationRepository.getSendMailDetailData(groupCode);
+        HashMap<String, String> results = new HashMap<String, String>();
+        for (Object[] borderTypes: resultList) {
+            results.put("customer", (String)borderTypes[0]);
+            results.put("email_form", (String)borderTypes[1]);
+        }
+        return results;
+    }
 
     public String getHTMLMailForm(String textBody){
 

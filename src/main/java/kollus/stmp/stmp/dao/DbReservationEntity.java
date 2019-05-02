@@ -12,6 +12,8 @@ public class DbReservationEntity {
     private String reservation_code;
     @Column(name="group_code")
     private String group_code;
+    @Column(name="customer")
+    private String customer;
     @Column(name="email_title")
     private String email_title;
     @Column(name="email_form")
@@ -28,6 +30,14 @@ public class DbReservationEntity {
     private Date sysdate;
 
     public DbReservationEntity(){}
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
 
     public String getReservation_code() {
         return reservation_code;
@@ -98,10 +108,11 @@ public class DbReservationEntity {
         return "DbReservationEntity{" +
                 "reservation_code='" + reservation_code + '\'' +
                 ", group_code='" + group_code + '\'' +
+                ", customer='" + customer + '\'' +
                 ", email_title='" + email_title + '\'' +
                 ", email_form='" + email_form + '\'' +
                 ", customer_address='" + customer_address + '\'' +
-                ", sys_send_date='" + sys_send_date + '\'' +
+                ", sys_send_date=" + sys_send_date +
                 ", state='" + state + '\'' +
                 ", sysdate=" + sysdate +
                 '}';

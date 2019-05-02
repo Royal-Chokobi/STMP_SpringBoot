@@ -19,6 +19,7 @@ CREATE TABLE `customer_info` (
 CREATE TABLE `smtp_reservation` (
   `reservation_code` char(30) NOT NULL,
   `group_code` char(15) DEFAULT NULL,
+  `customer` varchar(25) DEFAULT NULL,
   `email_title` varchar(50) DEFAULT NULL,
   `email_form` text,
   `customer_address` text,
@@ -29,7 +30,7 @@ CREATE TABLE `smtp_reservation` (
   UNIQUE KEY `smtp_reservation_reservation_code_uindex` (`reservation_code`),
   KEY `smtp_reservation_smtp_reservation_group_group_code_fk` (`group_code`),
   CONSTRAINT `smtp_reservation_smtp_reservation_group_group_code_fk` FOREIGN KEY (`group_code`) REFERENCES `smtp_reservation_group` (`group_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `smtp_reservation_group` (
@@ -41,5 +42,5 @@ CREATE TABLE `smtp_reservation_group` (
   `sysdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`group_code`),
   UNIQUE KEY `smtp_reservation_group_group_code_uindex` (`group_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

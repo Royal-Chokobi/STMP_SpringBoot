@@ -8,7 +8,10 @@ import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,16 +34,36 @@ public class ScheduleComponent{
         return mailForm;
     }
 
+    public LocalDateTime getReservationDate(String resDate){
+        LocalDateTime targetDateTime = null;
+        if(resDate != null && !resDate.equals("")){
+            String dateArray[] = resDate.split("-");
+
+            targetDateTime = targetDateTime.now()
+                    .withMonth(Integer.parseInt(dateArray[1]))
+                    .withDayOfMonth(Integer.parseInt(dateArray[2]))
+                    .withHour(14)
+                    .withMinute(00)
+                    .withSecond(00);
+        }else{
+            targetDateTime = LocalDateTime.now().plusSeconds(10);
+        }
+
+        return targetDateTime;
+    }
+
     public String getGroupCodeForm(){
         return dbGroupReservationRepository.getGroupCode();
     }
 
-    public void setGroupTableData(String groupCode, String title){
+    public void setGroupTableData(String groupCode, String title, ZonedDateTime resDateTime) throws Exception{
+        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date resdate = dtFormat.parse(resDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
         DbGroupReservationEntity dbGroupReservationEntity = new DbGroupReservationEntity();
         dbGroupReservationEntity.setGroup_code(groupCode);
         dbGroupReservationEntity.setGroup_title(title);
-        Date dt = new Date();
-        dbGroupReservationEntity.setReservation_date(dt);
+        dbGroupReservationEntity.setReservation_date(resdate);
         dbGroupReservationEntity.setState("R");
 
         dbGroupReservationRepository.save(dbGroupReservationEntity);
@@ -57,6 +80,7 @@ public class ScheduleComponent{
             dbReservationEntity.setEmail_form(sendBody);
             dbReservationEntity.setGroup_code(groupCode);
             dbReservationEntity.setReservation_code(jobKeyName);
+            dbReservationEntity.setCustomer(items.get("customerNM"));
             dbReservationEntity.setState("R");
 
             dbReservationRepository.save(dbReservationEntity);

@@ -42,14 +42,16 @@ public class EmailJobSchedulerController {
             request.setCharacterEncoding("utf-8");
             String textBody = request.getParameter("mailForm");
             String emailTitle = request.getParameter("title");
+            String resDate = request.getParameter("resDate");
 
+            LocalDateTime sendDateTime= scheduleComponent.getReservationDate(resDate);
             String groupCode = scheduleComponent.getGroupCodeForm();
             String sendBody = scheduleComponent.getHTMLMailForm(textBody);
             List<HashMap<String, String>> customerlist= customListComponent.getCustomerList();
 
-            ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now().plusSeconds(5), ZoneId.of("Asia/Seoul"));
+            ZonedDateTime dateTime = ZonedDateTime.of(sendDateTime, ZoneId.of("Asia/Seoul"));
 
-            scheduleComponent.setGroupTableData(groupCode, emailTitle);
+            scheduleComponent.setGroupTableData(groupCode, emailTitle, dateTime);
             scheduleComponent.setReservationTableData(customerlist, groupCode, emailTitle, sendBody);
 
             JobDetail jobDetail = scheduleComponent.buildJobDetail(groupCode);

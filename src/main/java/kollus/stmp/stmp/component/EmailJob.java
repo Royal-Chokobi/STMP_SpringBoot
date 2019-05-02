@@ -68,6 +68,7 @@ public class EmailJob extends QuartzJobBean {
 
 
         } catch (MessagingException ex) {
+            dbGroupReservationRepository.updateGroupReservationData(groupCode,"E");
             logger.error("Failed to send email : "+groupCode);
         }
 

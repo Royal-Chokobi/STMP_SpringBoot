@@ -15,6 +15,6 @@ public interface DbGroupReservationRepository extends JpaRepository<DbGroupReser
     List<DbGroupReservationEntity> getSendList();
     @Modifying
     @Transactional
-    @Query("UPDATE smtp_reservation_group res_g SET res_g.state = :state, res.sys_send_date = CURRENT_TIMESTAMP WHERE res.group_code = :group_code")
+    @Query("UPDATE smtp_reservation_group res_g SET res_g.state = :state, res_g.sys_send_date = CURRENT_TIMESTAMP WHERE res_g.group_code = :group_code")
     Integer updateGroupReservationData(@Param("group_code") String group_code, @Param("state") String state);
 }
