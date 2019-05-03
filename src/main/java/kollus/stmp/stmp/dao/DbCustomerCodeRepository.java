@@ -19,4 +19,6 @@ public interface DbCustomerCodeRepository extends CrudRepository<DbCustomerCodeE
     )
    List<Object[]> GetCustomerEmail();
 
+   @Query(value = "select CONCAT('K',(SELECT LPAD(COUNT(*)+1,5,'0') FROM customer_code)) AS customer_key", nativeQuery = true)
+   String getNewCustomerKey();
 }

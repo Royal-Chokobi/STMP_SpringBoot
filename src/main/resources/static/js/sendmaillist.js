@@ -13,8 +13,22 @@ var detailSendMail = function(group_code, group_title) {
         data: { groupCdoe : group_code},
         type: 'POST',
         success: function(retval){
+            var setCustomerHtml = "";
+            if(retval.customer != null && retval.customer !=""){
+                var customArr= retval.customer.split(",");
+                var sendState= retval.state.split(",");
+                for(var i =0 ; i < customArr.length; i++){
+                    if(sendState[i] == "Y"){
+                        setCustomerHtml += "<span class='tag tag__modal tooltip-message'><i class='glyphicon glyphicon-tag'></i> "+customArr[i]+"</span>";
+                    }else{
+                        setCustomerHtml += "<span class='tag tag_c_modal tooltip-message'><i class='glyphicon glyphicon-tag'></i>"+customArr[i]+"</span>";
+                    }
+                }
+            }
+
             $('.mail-form').html(retval.email_form);
-            $('.send-customer').html(retval.customer);
+            $('.send-customer').html(setCustomerHtml);
+
         }
     });
 };

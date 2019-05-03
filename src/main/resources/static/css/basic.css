@@ -4,8 +4,9 @@
     box-shadow: 0 0 1px 0 rgba(0,0,0,0.2);
 }
 .sidebar{
-    background-color: #343a40;
-    color: #ced4da;
+    background-image: linear-gradient(to bottom, #3498db 4.3em, #343a40 4em);
+    /* background-color: #343a40; */
+    color: white;
     padding-top: 16px;
     padding-bottom: 24px;
     top: 56px;
@@ -55,10 +56,60 @@
     color: #9775fa;
     order: 5;
 }
+.tag__mail {
+    background-color: #e3fafc;
+    color: #22b8cf;
+    order: 3;
+    font-size: 10px;
+    font-weight: 700;
+}
+.tag__modal {
+    background-color: #e3fafc;
+    color: #22b8cf;
+    order: 3;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+.tag_c_modal {
+    background-color: #f3f0ff;
+    color: #9775fa;
+    order: 3;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-decoration-line: line-through;
+}
 .tag__tv, .tag__pc, .tag__tablet, .tag__mobile, .tag__audio, .tag__vr, .tag__encryption, .tag__channel, .tag__youtube {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
+}
+.white-btn{
+    background-color: #fff;
+    background-position: center;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    color: #495057;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    outline: 0;
+    overflow: hidden;
+    padding: 9px 12px;
+    user-select: none;
+    text-align: center;
+    text-decoration: none;
+    transition: background .4s ease-in-out;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.white-btn:hover {
+    background: #dee2e6 radial-gradient(circle, transparent 1%, #dee2e6 1%) center/20000%;
 }
 .m-btn {
     background-color: #fff;
@@ -212,4 +263,37 @@ form.user .custom-checkbox.small label {
     width: 930px;
     height: 100%;
 }
-
+.modal-bigsize{
+    margin: 30px auto;
+    width: 1200px;
+    height: 100%;
+}
+.detail {
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    top: 65px;
+    right: 0;
+    bottom: 55px;
+}
+.animate-div {
+    width:100%;
+    -webkit-transition: width 800ms;
+    transition: width 800ms;
+}
+.animate-on{
+    float: left;
+    width:77%;
+}
+.animate-side-div {
+    position: absolute;
+    overflow: hidden;
+    width:10%;
+    z-index: -1;
+    -webkit-transition: width 500ms;
+    transition: width 500ms;
+}
+.animate-side-on{
+    float: left;
+    z-index: 100;
+    width:20%;
+}

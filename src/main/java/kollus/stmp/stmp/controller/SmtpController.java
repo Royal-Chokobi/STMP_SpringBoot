@@ -37,17 +37,8 @@ public class SmtpController {
         return new ModelAndView("index");
     }
 
-   /* @RequestMapping(value = {"/Customer"}, method = RequestMethod.GET)
-    public ModelAndView hello(Model model, @RequestParam(value="name", required=false, defaultValue="") String name) {
-
-        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
-        model.addAttribute("tbdata", tb_data);
-
-        return new ModelAndView("Customer");
-    }*/
     @RequestMapping(value = {"/customer"}, method = RequestMethod.GET)
     public ModelAndView customerList(Model model) {
-
         List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
         model.addAttribute("tbdata", tb_data);
 
@@ -56,7 +47,6 @@ public class SmtpController {
 
     @RequestMapping(value = {"/sendlist"}, method = RequestMethod.GET)
     public ModelAndView sendList(Model model) {
-
         List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailSendList();
         model.addAttribute("tbdata", tb_data);
 
@@ -68,9 +58,41 @@ public class SmtpController {
     public HashMap<String, String> sendMailDetail( HttpServletRequest request) throws Exception{
         request.setCharacterEncoding("utf-8");
         String group_code = request.getParameter("groupCdoe");
-        System.out.println(group_code);
         HashMap<String, String> tb_data = SendMailComponent.getSendMailDetail(group_code);
+
         return tb_data;
+    }
+
+    @RequestMapping(value = {"/reservationlist"}, method = RequestMethod.GET)
+    public ModelAndView reservationList(Model model) {
+        List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailReservationList();
+        model.addAttribute("tbdata", tb_data);
+
+        return new ModelAndView("reservationList");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/getReservationDetail"}, method = RequestMethod.POST)
+    public List<DbReservationEntity> reservationDetail( HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String group_code = request.getParameter("groupCdoe");
+        List<DbReservationEntity> tb_data = SendMailComponent.getReservationDetail(group_code);
+
+        return tb_data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/cancelReservation"}, method = RequestMethod.POST)
+    public HashMap<String, Object> cancelReservationEmail( HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String kind = request.getParameter("kind");
+        String group_code = request.getParameter("group_code");
+        String res_code = request.getParameter("res_code");
+
+        HashMap<String, Object> result = SendMailComponent.reservationStateCancel(kind, group_code, res_code);
+
+
+        return result;
     }
 
     @RequestMapping(value = {"/sendmailpage"}, method = RequestMethod.GET)

@@ -46,7 +46,7 @@ public class ScheduleComponent{
                     .withMinute(00)
                     .withSecond(00);
         }else{
-            targetDateTime = LocalDateTime.now().plusSeconds(10);
+            targetDateTime = LocalDateTime.now().plusSeconds(30);
         }
 
         return targetDateTime;
