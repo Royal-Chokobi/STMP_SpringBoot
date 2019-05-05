@@ -1,6 +1,8 @@
 package kollus.stmp.stmp.component;
 
+import kollus.stmp.stmp.dao.DbCustomerCodeEntity;
 import kollus.stmp.stmp.dao.DbCustomerCodeRepository;
+import kollus.stmp.stmp.dao.DbCustomerEntity;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +38,12 @@ public class CustomListComponent {
         }
 
         return cmlist;
+    }
+
+    public List<DbCustomerEntity> getDetailCustomerInfo(String customerCode){
+        List<DbCustomerEntity> results = dbCustomerRepository.findCustomerKey(customerCode);
+
+        return results;
     }
 
 }

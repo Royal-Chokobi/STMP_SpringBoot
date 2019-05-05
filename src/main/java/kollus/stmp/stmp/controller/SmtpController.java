@@ -37,14 +37,6 @@ public class SmtpController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value = {"/customer"}, method = RequestMethod.GET)
-    public ModelAndView customerList(Model model) {
-        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
-        model.addAttribute("tbdata", tb_data);
-
-        return new ModelAndView("Customer");
-    }
-
     @RequestMapping(value = {"/sendlist"}, method = RequestMethod.GET)
     public ModelAndView sendList(Model model) {
         List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailSendList();

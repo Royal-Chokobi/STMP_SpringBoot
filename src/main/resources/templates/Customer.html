@@ -78,15 +78,15 @@
                       <td >
                         <span th:text="${dt.customerNM}"></span>
                         <div class="float-right">
-                          <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:editCustomer('${dt.customerCode}', '${dt.customerNM}')|" data-target="#modal" data-toggle="modal" >수정</span>
+                          <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:detailCustomerInfo('${dt.customerCode}', '${dt.customerNM}')|" >상세보기</span>
                           <span class="tag tag__mobile tooltip-message td_div" >삭제</span>
                         </div>
                       </td>
                       <td >
                         <span th:text="${dt.customerEmail}"></span>
-                        <div class="float-right">
+                       <!-- <div class="float-right">
                           <span class="tag tag__pc tooltip-message td_div" >상세보기</span>
-                        </div>
+                        </div>-->
                       </td>
                     </tr>
                   </tbody>
@@ -112,14 +112,26 @@
   </div>
   <!-- End of Page Wrapper -->
   <div class="animate-side-div detail">
-    <div>
-      <label>제목</label>
-      <input type="text" class="form-control" id="form-title" name="form-title" placeholder="Title" value="테스트2">
+    <div class="col-xl-12">
+      <div class="card border-left-primary shadow h-100">
+        <div class="card-body p-2">
+          <div class="row m-3">
+            <div class="col ">
+              <div class="row no-gutters label-form-group align-items-center ">
+                <div class="col">
+                  <input class="form-control bg-white" type="text" id="customer_nm" disabled placeholder="Customer">
+                </div>
+                <div class="col-auto">
+                  <span class='tag tag__mail tooltip-message' onclick="changeCustomerNM()">수정</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <button type="button" id="btn-delete-content" class="btn btn-danger" data-confirm-message="삭제하시겠습니까?"><i class="ks-icon ks-icon-trash mr-xs"></i>삭제하기</button>
+    <div class="col-xl-12 small" id="customer_detail">
 
-      <button type="button" id="btn-update-content" class="btn btn-primary btn-confirm"><i class="ks-icon ks-icon-edit mr-xs"></i>변경하기</button>
     </div>
   </div>
 

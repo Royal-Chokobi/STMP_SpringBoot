@@ -287,7 +287,7 @@ form.user .custom-checkbox.small label {
 .animate-side-div {
     position: absolute;
     overflow: hidden;
-    width:10%;
+    width:15%;
     z-index: -1;
     -webkit-transition: width 500ms;
     transition: width 500ms;

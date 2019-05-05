@@ -19,12 +19,6 @@ public class DbCustomerCodeEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sysdate;
 
-    /*@OneToOne
-    @JoinTable(name = "customer_information",
-            joinColumns = @JoinColumn(name = "customer_key"),
-            inverseJoinColumns = @JoinColumn(name = "customer_key"))
-    private DbCustomerEntity dbCustomerEntity;*/
-
     public DbCustomerCodeEntity(){}
 
     public long getIndex() {
