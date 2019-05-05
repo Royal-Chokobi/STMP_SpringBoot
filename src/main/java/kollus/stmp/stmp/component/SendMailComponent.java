@@ -80,7 +80,7 @@ public class SendMailComponent {
         }else if(kind.equals("group")){
             updateState = dbGroupReservationRepository.cancelGroupReservationData("C",group_code);
         }
-        System.out.println(updateState);
+
         if(updateState < 1){
             result.put("error", 1);
             result.put("message", "error! 예약 취소를 실패했습니다.");

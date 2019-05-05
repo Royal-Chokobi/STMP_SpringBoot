@@ -1,19 +1,19 @@
 CREATE TABLE `customer_code` (
-  `index` int(11) NOT NULL AUTO_INCREMENT,
+  `code_index` int(11) NOT NULL AUTO_INCREMENT,
   `customer_key` varchar(10) NOT NULL,
   `customer` varchar(25) DEFAULT NULL,
   `sysdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`index`),
+  PRIMARY KEY (`code_index`),
   UNIQUE KEY `customer_code_customer_key_uindex` (`customer_key`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `customer_info` (
-  `index` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_index` int(11) NOT NULL AUTO_INCREMENT,
   `customer_key` varchar(10) DEFAULT NULL,
   `customer_name` varchar(15) DEFAULT NULL,
   `customer_email` varchar(35) DEFAULT NULL,
   `sysdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`index`),
+  PRIMARY KEY (`customer_index`),
   KEY `customer_info_customer_code_customer_key_fk` (`customer_key`),
   CONSTRAINT `customer_info_customer_code_customer_key_fk` FOREIGN KEY (`customer_key`) REFERENCES `customer_code` (`customer_key`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

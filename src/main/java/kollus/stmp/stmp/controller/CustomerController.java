@@ -38,12 +38,45 @@ public class CustomerController {
 
     @ResponseBody
     @RequestMapping(value = {"/detailinfo"}, method = RequestMethod.POST)
-    public List<DbCustomerEntity> reservationDetail(HttpServletRequest request) throws Exception{
+    public List<DbCustomerEntity> customerDetailInfo(HttpServletRequest request) throws Exception{
         request.setCharacterEncoding("utf-8");
         String customerCode = request.getParameter("customerCode");
         List<DbCustomerEntity> tb_data = customListComponent.getDetailCustomerInfo(customerCode);
 
         return tb_data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/editname"}, method = RequestMethod.POST)
+    public HashMap<String, String> editCustomerName(HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String customerCode = request.getParameter("customerCode");
+        String customerNM = request.getParameter("customerNM");
+        HashMap<String, String> result = customListComponent.editCustomerNM(customerNM, customerCode);
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/editcusinfo"}, method = RequestMethod.POST)
+    public HashMap<String, String> editCustomerInfomation(HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String index = request.getParameter("index");
+        String customerNM = request.getParameter("cus_name");
+        String customerEmail = request.getParameter("cus_email");
+        HashMap<String, String> result = customListComponent.editCustomerInfo(index, customerNM, customerEmail);
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/delcusinfo"}, method = RequestMethod.POST)
+    public HashMap<String, String> delCustomerInfomation(HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String index = request.getParameter("index");
+        HashMap<String, String> result = customListComponent.delCustomerInfo(index);
+
+        return result;
     }
 
 }

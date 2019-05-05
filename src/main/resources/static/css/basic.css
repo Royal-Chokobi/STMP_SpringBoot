@@ -63,6 +63,13 @@
     font-size: 10px;
     font-weight: 700;
 }
+.tag__card {
+    color: white;
+    background-color: #3498db;
+    order: 3;
+    font-size: 12px;
+    font-weight: 700;
+}
 .tag__modal {
     background-color: #e3fafc;
     color: #22b8cf;
@@ -296,4 +303,7 @@ form.user .custom-checkbox.small label {
     float: left;
     z-index: 100;
     width:20%;
+}
+.pointer{
+    cursor: pointer;
 }

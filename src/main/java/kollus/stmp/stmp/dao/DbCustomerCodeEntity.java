@@ -9,7 +9,7 @@ public class DbCustomerCodeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long index;
+    private long code_index;
     @Column(name="customer_key")
     private String customer_key;
     @Column(name="customer")
@@ -21,12 +21,12 @@ public class DbCustomerCodeEntity {
 
     public DbCustomerCodeEntity(){}
 
-    public long getIndex() {
-        return index;
+    public long getCode_index() {
+        return code_index;
     }
 
-    public void setIndex(long index) {
-        this.index = index;
+    public void setCode_index(long code_index) {
+        this.code_index = code_index;
     }
 
     public String getCustomer_key() {
@@ -56,7 +56,7 @@ public class DbCustomerCodeEntity {
     @Override
     public String toString() {
         return "DbCustomerCodeEntity{" +
-                "index=" + index +
+                "code_index=" + code_index +
                 ", customer_key='" + customer_key + '\'' +
                 ", customer='" + customer + '\'' +
                 ", sysdate=" + sysdate +

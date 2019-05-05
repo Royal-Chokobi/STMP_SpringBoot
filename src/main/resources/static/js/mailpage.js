@@ -65,7 +65,6 @@ var sendTextarea = function () {
             data: { mailForm : mailForm, title:emailTitle, resDate: resDate},
             type: 'POST',
             success: function(retval){
-                //console.log(retval);
                 alert(retval.message);
             }
         });

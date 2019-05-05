@@ -46,4 +46,38 @@ public class CustomListComponent {
         return results;
     }
 
+    public HashMap<String, String> editCustomerNM(String editNm, String customerCode){
+        HashMap<String, String> results = new HashMap<String, String>();
+        int updateState = dbCustomerCodeRepository.updateCustomerName(editNm, customerCode);
+
+        if(updateState < 1){
+            results.put("message", "error! 수정에 실패했습니다.");
+        }else{
+            results.put("message", "정상적으로 수정 되었습니다.");
+        }
+
+        return results;
+    }
+
+    public HashMap<String, String> editCustomerInfo(String index, String customerNM, String customerEmail){
+        HashMap<String, String> results = new HashMap<String, String>();
+        int updateState = dbCustomerRepository.updateCustomerInfo(customerNM, customerEmail, index);
+
+        if(updateState < 1){
+            results.put("message", "error! 수정에 실패했습니다.");
+        }else{
+            results.put("message", "정상적으로 수정 되었습니다.");
+        }
+
+        return results;
+    }
+
+    public HashMap<String, String> delCustomerInfo(String index){
+        HashMap<String, String> results = new HashMap<String, String>();
+        dbCustomerRepository.deleteById(Long.parseLong(index));
+        results.put("message", "정상적으로 삭제 되었습니다.");
+
+        return results;
+    }
+
 }

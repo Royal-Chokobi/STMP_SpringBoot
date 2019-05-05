@@ -79,14 +79,11 @@
                         <span th:text="${dt.customerNM}"></span>
                         <div class="float-right">
                           <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:detailCustomerInfo('${dt.customerCode}', '${dt.customerNM}')|" >상세보기</span>
-                          <span class="tag tag__mobile tooltip-message td_div" >삭제</span>
+                          <span class="tag tag__mobile tooltip-message td_div">삭제</span>
                         </div>
                       </td>
-                      <td >
+                      <td>
                         <span th:text="${dt.customerEmail}"></span>
-                       <!-- <div class="float-right">
-                          <span class="tag tag__pc tooltip-message td_div" >상세보기</span>
-                        </div>-->
                       </td>
                     </tr>
                   </tbody>
@@ -119,10 +116,11 @@
             <div class="col ">
               <div class="row no-gutters label-form-group align-items-center ">
                 <div class="col">
-                  <input class="form-control bg-white" type="text" id="customer_nm" disabled placeholder="Customer">
+                  <span class="tag tag__card" >고객사</span>
+                  <input class="form-control bg-white" type="text" id="customer_nm" placeholder="Customer">
                 </div>
-                <div class="col-auto">
-                  <span class='tag tag__mail tooltip-message' onclick="changeCustomerNM()">수정</span>
+                <div class="col-auto" id="cus_edit">
+
                 </div>
               </div>
             </div>
