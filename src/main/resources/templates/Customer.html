@@ -59,7 +59,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 <div class="float-right">
-                  <button type="button" class="white-btn" onclick="newCustomer();">
+                  <button type="button" class="white-btn" onclick="addNewCustomer();" data-target="#modal" data-toggle="modal">
                     <i class="glyphicon glyphicon-user"></i>
                     고객사 등록
                   </button>
@@ -78,8 +78,8 @@
                       <td >
                         <span th:text="${dt.customerNM}"></span>
                         <div class="float-right">
-                          <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:detailCustomerInfo('${dt.customerCode}', '${dt.customerNM}')|" >상세보기</span>
-                          <span class="tag tag__mobile tooltip-message td_div">삭제</span>
+                          <span class="tag tag__pc tooltip-message td_div select-btn" th:onclick="|javascript:detailCustomerInfo('${dt.customerCode}', '${dt.customerNM}')|" >상세보기</span>
+                          <span class="tag tag__mobile tooltip-message td_div select-btn" th:onclick="|javascript:delCustomerCode('${dt.customerCode}')|">삭제</span>
                         </div>
                       </td>
                       <td>
@@ -108,9 +108,9 @@
 
   </div>
   <!-- End of Page Wrapper -->
-  <div class="animate-side-div detail">
+  <div class="animate-side-div detail select-box">
     <div class="col-xl-12">
-      <div class="card border-left-primary shadow h-100">
+      <div class="card border-left-primary h-100 mb-3">
         <div class="card-body p-2">
           <div class="row m-3">
             <div class="col ">

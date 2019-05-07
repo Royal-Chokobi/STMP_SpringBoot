@@ -73,17 +73,18 @@ public class ScheduleComponent{
             UUID uuid = UUID.randomUUID();
             String jobKeyName = Long.toString(uuid.getLeastSignificantBits(), 36).replace('-', 'C');
             String sendTitle = "["+items.get("customerNM")+"]"+emailTitle;
+            if(items.get("customerEmail") != null && !items.get("customerEmail").equals("")){
+                DbReservationEntity dbReservationEntity = new DbReservationEntity();
+                dbReservationEntity.setEmail_title(sendTitle);
+                dbReservationEntity.setCustomer_address(items.get("customerEmail"));
+                dbReservationEntity.setEmail_form(sendBody);
+                dbReservationEntity.setGroup_code(groupCode);
+                dbReservationEntity.setReservation_code(jobKeyName);
+                dbReservationEntity.setCustomer(items.get("customerNM"));
+                dbReservationEntity.setState("R");
 
-            DbReservationEntity dbReservationEntity = new DbReservationEntity();
-            dbReservationEntity.setEmail_title(sendTitle);
-            dbReservationEntity.setCustomer_address(items.get("customerEmail"));
-            dbReservationEntity.setEmail_form(sendBody);
-            dbReservationEntity.setGroup_code(groupCode);
-            dbReservationEntity.setReservation_code(jobKeyName);
-            dbReservationEntity.setCustomer(items.get("customerNM"));
-            dbReservationEntity.setState("R");
-
-            dbReservationRepository.save(dbReservationEntity);
+                dbReservationRepository.save(dbReservationEntity);
+            }
         }
     }
 

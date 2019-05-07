@@ -31,10 +31,9 @@ public class SmtpController {
     @Autowired
     private DbCustomerRepository DbCustomerRepository;
 
-    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {""}, method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
-
-        return new ModelAndView("index");
+        return new ModelAndView("sendMailpage");
     }
 
     @RequestMapping(value = {"/sendlist"}, method = RequestMethod.GET)
@@ -86,6 +85,8 @@ public class SmtpController {
 
         return result;
     }
+
+
 
     @RequestMapping(value = {"/sendmailpage"}, method = RequestMethod.GET)
     public ModelAndView mailpage() throws Exception{

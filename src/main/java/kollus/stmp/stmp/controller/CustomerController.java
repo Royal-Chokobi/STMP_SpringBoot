@@ -71,10 +71,20 @@ public class CustomerController {
 
     @ResponseBody
     @RequestMapping(value = {"/delcusinfo"}, method = RequestMethod.POST)
-    public HashMap<String, String> delCustomerInfomation(HttpServletRequest request) throws Exception{
+    public HashMap<String, String> deleteCustomerInfomation(HttpServletRequest request) throws Exception{
         request.setCharacterEncoding("utf-8");
         String index = request.getParameter("index");
         HashMap<String, String> result = customListComponent.delCustomerInfo(index);
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/delcustomer"}, method = RequestMethod.POST)
+    public HashMap<String, String> deleteCustomer(HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String customerCode = request.getParameter("customerCode");
+        HashMap<String, String> result = customListComponent.delCustomer(customerCode);
 
         return result;
     }

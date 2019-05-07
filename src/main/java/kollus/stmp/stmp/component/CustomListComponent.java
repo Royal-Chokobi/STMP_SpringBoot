@@ -80,4 +80,15 @@ public class CustomListComponent {
         return results;
     }
 
+    public HashMap<String, String> delCustomer(String customerCode){
+        HashMap<String, String> results = new HashMap<String, String>();
+
+        dbCustomerRepository.deleteCustomerInfo(customerCode);
+        dbCustomerCodeRepository.deleteCustomer(customerCode);
+
+        results.put("message", "정상적으로 삭제 되었습니다.");
+
+        return results;
+    }
+
 }

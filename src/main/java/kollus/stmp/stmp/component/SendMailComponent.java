@@ -1,6 +1,5 @@
 package kollus.stmp.stmp.component;
 
-import kollus.stmp.stmp.KollusConfig;
 import kollus.stmp.stmp.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +15,7 @@ import java.util.*;
 
 @Component
 public class SendMailComponent {
-    @Autowired
-    private KollusConfig kollusConfig;
+
     @Autowired
     private DbCustomerRepository dbCustomerRepository;
     @Autowired
@@ -177,11 +175,11 @@ public class SendMailComponent {
             return result;
         }
 
-        String smtpHost = kollusConfig.getHost();
+        String smtpHost = ""; // kollusConfig.getHost();
         String smtpPort = "587";
-        String smtpProtocol = kollusConfig.getProtocol();
-        String smtpMailAddress = kollusConfig.getMailAddress();
-        String smtpSecretKey = kollusConfig.getSecretKey();
+        String smtpProtocol = ""; //  kollusConfig.getProtocol();
+        String smtpMailAddress = ""; //  kollusConfig.getMailAddress();
+        String smtpSecretKey = ""; //  kollusConfig.getSecretKey();
 
         if(smtpProtocol.equals("https") && !smtpProtocol.isEmpty()){
             smtpPort = "465"; // ssl 일 경우.

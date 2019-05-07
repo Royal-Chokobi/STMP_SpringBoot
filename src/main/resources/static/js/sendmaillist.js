@@ -18,10 +18,10 @@ var detailSendMail = function(group_code, group_title) {
                 var customArr= retval.customer.split(",");
                 var sendState= retval.state.split(",");
                 for(var i =0 ; i < customArr.length; i++){
-                    if(sendState[i] == "Y"){
-                        setCustomerHtml += "<span class='tag tag__modal tooltip-message'><i class='glyphicon glyphicon-tag'></i> "+customArr[i]+"</span>";
-                    }else{
+                    if(sendState[i] == "C"){
                         setCustomerHtml += "<span class='tag tag_c_modal tooltip-message'><i class='glyphicon glyphicon-tag'></i>"+customArr[i]+"</span>";
+                    }else{
+                        setCustomerHtml += "<span class='tag tag__modal tooltip-message'><i class='glyphicon glyphicon-tag'></i> "+customArr[i]+"</span>";
                     }
                 }
             }
