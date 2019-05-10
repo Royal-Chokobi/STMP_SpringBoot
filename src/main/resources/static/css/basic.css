@@ -2,6 +2,7 @@
     background-color: #3498db;
     background-image: linear-gradient(to right, #3498db 0%, #6f86d6 100%);
     box-shadow: 0 0 1px 0 rgba(0,0,0,0.2);
+    display: -webkit-box;
 }
 .sidebar{
     /*background-image: linear-gradient(to bottom, #3498db 4.3em, #343a40 4em);*/
@@ -306,4 +307,8 @@ form.user .custom-checkbox.small label {
 }
 .pointer{
     cursor: pointer;
+}
+.min-vh-88{
+    background-color: #f8f9fc;
+    min-height: 88.5vh;
 }

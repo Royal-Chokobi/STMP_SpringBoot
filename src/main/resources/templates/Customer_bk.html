@@ -13,21 +13,20 @@
   <!-- Custom fonts for this template -->
   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
   <script src="/js/index.js"></script>
-  <script src="/js/sendmaillist.js"></script>
+  <script src="/js/customer.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/frame.min.css">
   <link rel="stylesheet" type="text/css" href="/css/basic.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-
-
 </head>
 
-<body id="page-top" onload="dataTablePage();">
+<body id="page-top" onload="contentClickEvent();">
+
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -46,7 +45,7 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-      <div class=" header">
+      <div class="header">
         <div class="container-fluid h-100">
           <div class="row align-items-center justify-content-between h-100">
             <div class="col text-right">
@@ -58,44 +57,39 @@
       <!-- Main Content -->
       <div id="content">
         <div class="container-fluid">
-          <div class="card shadow mb-4 mt-3">
-              <div class="card-header py-3">
-                  <h6 class="h3 m-0 font-weight-bold text-primary d-inline-block">전송 리스트(ALL)</h6>
-              </div>
+          <div class="card shadow mb-4 animate-div mt-3">
+            <div class="card-header py-3">
+                <h6 class="h3 m-0 font-weight-bold text-primary d-inline-block">고객사 리스트</h6>
+                <div class="float-right">
+                    <button type="button" class="white-btn" onclick="addNewCustomer();" data-target="#modal" data-toggle="modal">
+                        <i class="glyphicon glyphicon-user"></i>
+                        고객사 등록
+                    </button>
+                </div>
+            </div>
             <div class="card-body">
-              <div class="float-right mb-3">
-                State :
-                <span class='tag tag__mobile tooltip-message'>Y : 전송완료</span>
-                <span class='tag tag__mobile tooltip-message'>R : 예약</span>
-                <span class='tag tag__mobile tooltip-message'>C : 취소</span>
-                <span class='tag tag__mobile tooltip-message'>E : 에러</span>
-              </div>
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>전송 Group Code</th>
-                      <th>메일 제목</th>
-                      <th>예약 일자</th>
-                      <th>State</th>
-                      <!--<th>cancle</th>-->
+                      <th>고객사 코드</th>
+                      <th>고객사</th>
+                      <th>연결된 Email리스트</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody >
                     <tr th:each="dt: ${tbdata}">
-                      <td th:text="${dt.group_code}"></td>
-                      <td>
-                          <span  th:text="${dt.group_title}"></span>
-                          <div class="float-right">
-                              <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:detailSendMail('${dt.group_code}', '${dt.group_title}')|" data-target="#modal" data-toggle="modal">상세보기</span>
-                          </div>
-                          <div ></div>
+                      <td th:text="${dt.customerCode}"></td>
+                      <td >
+                        <span th:text="${dt.customerNM}"></span>
+                        <div class="float-right">
+                          <span class="tag tag__pc tooltip-message td_div select-btn" th:onclick="|javascript:detailCustomerInfo('${dt.customerCode}', '${dt.customerNM}')|" >상세보기</span>
+                          <span class="tag tag__mobile tooltip-message td_div select-btn" th:onclick="|javascript:delCustomerCode('${dt.customerCode}')|">삭제</span>
+                        </div>
                       </td>
-                      <td th:text="${dt.reservation_date}"></td>
-                      <td th:text="${dt.state}"></td>
-                      <!--<td>
-                          <span class="tag tag__mobile tooltip-message td_div" th:if="${dt.state} != Y">전송취소</span>
-                      </td>-->
+                      <td>
+                        <span th:text="${dt.customerEmail}"></span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -119,24 +113,45 @@
 
   </div>
   <!-- End of Page Wrapper -->
+  <div class="animate-side-div detail select-box">
+    <div class="col-xl-12">
+      <div class="card border-left-primary h-100 mb-3">
+        <div class="card-body p-2">
+          <div class="row m-3">
+            <div class="col ">
+              <div class="row no-gutters label-form-group align-items-center ">
+                <div class="col">
+                  <span class="tag tag__card" >고객사</span>
+                  <input class="form-control bg-white" type="text" id="customer_nm" placeholder="Customer">
+                </div>
+                <div class="col-auto" id="cus_edit">
 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 small" id="customer_detail">
+
+    </div>
+  </div>
 
   <!-- modal -->
   <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-mailsize" role="document">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="modalLabel"></h3>
         </div>
         <div class="modal-body">
-          <div class="send-customer">
+          <table  class="table table-hover" id="modalTable">
 
-          </div>
-          <div class="mail-form">
-
-          </div>
+          </table>
         </div>
         <div class="modal-footer">
+          <button type="button" class="m-btn m-btn-primary" onclick="setCodeData();">적용</button>
           <button type="button" class="m-btn m-btn-danger" id="modalClose" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>닫기</button>
         </div>
       </div>

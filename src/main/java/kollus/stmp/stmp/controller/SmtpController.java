@@ -31,6 +31,17 @@ public class SmtpController {
     @Autowired
     private DbCustomerRepository DbCustomerRepository;
 
+    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
+    public ModelAndView index1(Model model) throws Exception{
+        /*List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailSendList();
+        model.addAttribute("tbdata", tb_data);*/
+        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
+        model.addAttribute("tbdata", tb_data);
+        model.addAttribute("html", "customer");
+        model.addAttribute("fragment", "content");
+
+        return new ModelAndView("index");
+    }
     @RequestMapping(value = {""}, method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
         return new ModelAndView("sendMailpage");

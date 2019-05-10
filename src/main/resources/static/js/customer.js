@@ -9,7 +9,12 @@ $(document).ready(function () {
             $('.animate-side-div').removeClass('animate-side-on');
         }
     });
+    dataTablePage();
 });
+
+var dataTablePage =  function(){
+    $('#dataTable').DataTable();
+};
 
 var addNewCustomer = function (customerCode, customerNM) {
     alert("작업중");

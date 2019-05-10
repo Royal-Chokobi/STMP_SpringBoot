@@ -1,3 +1,4 @@
+/*
 $(document).ready(function () {
     getMenuList();
 });
@@ -10,3 +11,8 @@ function getMenuList() {
 
     $('#sidebarMenu').html(menulist);
 }
+*/
+
+var dataTablePage =  function(){
+    $('#dataTable').DataTable();
+};

@@ -1,36 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
 
-    <style>
-        .jb {
-            width: 100px;
-            height: 500px;
-            margin: 60px auto;
-            background-color: orange;
-            transition: all ease 1s;
-        }
-        .jb:hover {
-            transform: scale( 1.5 );
-        }
-    </style>
-</head>
-<body>
-index page
-<div class="row">
-    <div class="form-group">
-        <div class="custom-control custom-checkbox small">
-            <input type="checkbox" class="custom-control-input" id="customCheck">
-            <label class="custom-control-label" for="customCheck">Remember Me</label>
-        </div>
-    </div>
-</div>
+<head th:replace="common/h_config ::configFragment"></head>
 
 
-<div class="jb"></div>
-</body>
+<nav th:replace="common/nav_sidebar::nav"></nav>
+
+<header th:replace="common/header :: header"></header>
+
+<div th:replace="${html} :: ${fragment}"></div>
+
+<footer th:replace="common/footer::footerFragment"></footer>
+
 </html>
