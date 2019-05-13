@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:fragment="sendList" >
+      <!-- Main Content -->
+      <div id="content">
+        <div class="container-fluid">
+          <div class="card shadow mb-4 mt-3">
+              <div class="card-header py-3">
+                  <h6 class="h3 m-0 font-weight-bold text-primary d-inline-block">전송 리스트(ALL)</h6>
+              </div>
+            <div class="card-body">
+              <div class="float-right mb-3">
+                State :
+                <span class='tag tag__mobile tooltip-message'>Y : 전송완료</span>
+                <span class='tag tag__mobile tooltip-message'>R : 예약</span>
+                <span class='tag tag__mobile tooltip-message'>C : 취소</span>
+                <span class='tag tag__mobile tooltip-message'>E : 에러</span>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>전송 Group Code</th>
+                      <th>메일 제목</th>
+                      <th>예약 일자</th>
+                      <th>State</th>
+                      <!--<th>cancle</th>-->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="dt: ${tbdata}">
+                      <td th:text="${dt.group_code}"></td>
+                      <td>
+                          <span  th:text="${dt.group_title}"></span>
+                          <div class="float-right">
+                              <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:detailSendMail('${dt.group_code}', '${dt.group_title}')|" data-target="#modal" data-toggle="modal">상세보기</span>
+                          </div>
+                          <div ></div>
+                      </td>
+                      <td th:text="${dt.reservation_date}"></td>
+                      <td th:text="${dt.state}"></td>
+                      <!--<td>
+                          <span class="tag tag__mobile tooltip-message td_div" th:if="${dt.state} != Y">전송취소</span>
+                      </td>-->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+
+  <!-- modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-mailsize" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="display: block;">
+          <div class="float-right">
+            <a href="javascript:;" data-dismiss="modal" class="glyphicon glyphicon-remove"></a>
+          </div>
+          <div class="float-left">
+            <h3 class="modal-title" id="modalLabel"></h3>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="send-customer">
+
+          </div>
+          <div class="mail-form">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="m-btn m-btn-danger" id="modalClose" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script th:src="@{/js/sendmaillist.js}"></script>
+</div>
+</html>

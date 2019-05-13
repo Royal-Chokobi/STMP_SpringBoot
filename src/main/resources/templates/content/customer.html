@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div th:fragment="content" id="content-wrapper" class="d-flex flex-column min-vh-88" >
+<div th:fragment="customer" >
     <div id="content" >
         <div class="container-fluid">
             <div class="card shadow mb-4 animate-div mt-3">
                 <div class="card-header py-3">
                     <h6 class="h3 m-0 font-weight-bold text-primary d-inline-block">고객사 리스트</h6>
                     <div class="float-right">
-                        <button type="button" class="white-btn" onclick="addNewCustomer();" data-target="#modal" data-toggle="modal">
+                        <button type="button" class="white-btn" data-target="#modal" data-toggle="modal">
                             <i class="glyphicon glyphicon-user"></i>
                             고객사 등록
                         </button>
@@ -67,6 +67,57 @@
         </div>
         <div class="col-xl-12 small" id="customer_detail">
 
+        </div>
+    </div>
+    <!-- modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="display: block;">
+                    <div class="float-right">
+                        <a href="javascript:;" data-dismiss="modal" class="glyphicon glyphicon-remove"></a>
+                    </div>
+                    <div class="float-left">
+                        <h3 class="modal-title" id="modalLabel">고객사 등록</h3>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div >
+                        <div class='card border-left-primary'>
+                            <div class='row no-gutters label-form-group align-items-center m-3'>
+                                <div class='col'>
+                                    <span class="tag tag__card"><i class="glyphicon glyphicon-lock"></i> 고객사</span>
+                                    <input class='form-control bg-white' type='text' name="customer_name"  placeholder='고객사명' >
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="sidebar-divider d-none d-md-block">
+                        <div class="col mb-3">
+                            <button type="button" class="white-btn" style="display: contents" onclick="addCustomerLine();">
+                                <i class="glyphicon glyphicon-user"></i>
+                                추가
+                            </button>
+                        </div>
+                        <div class='card border-left-warning cus-line'>
+                            <div class='row no-gutters label-form-group align-items-center m-3'>
+                                <div class='col-3'>
+                                    <input class='form-control bg-white' type='text' name="manager_name"  placeholder='담당자' >
+                                </div>
+                                <div class='col'>
+                                    <input class='form-control bg-white' type='text' name="manager_email"  placeholder='email@catenoid.net' >
+                                </div>
+                                <!--<div class="col-auto">
+                                    <span class="tag tag__mobile tooltip-message pointer" >삭제</span>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-update-content" class="m-btn m-btn-primary" onclick="addNewCustomer();"><i class="glyphicon glyphicon-ok"></i>등록</button>
+                    <button type="button" class="m-btn m-btn-danger" id="modalClose" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>취소</button>
+                </div>
+            </div>
         </div>
     </div>
     <script th:src="@{/js/customer.js}"></script>

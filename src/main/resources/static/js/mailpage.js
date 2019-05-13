@@ -1,23 +1,26 @@
-(function($) {
-    $(function() {
-        $("body").on("input propertychange", ".label-form-group", function(e) {
-            $(this).toggleClass("label-form-group-with-value", !!$(e.target).val());
-        }).on("focus", ".label-form-group", function() {
-            $(this).addClass("label-form-group-with-focus");
-        }).on("blur", ".label-form-group", function() {
-            $(this).removeClass("label-form-group-with-focus");
-        });
+$(document).ready(function () {
+
+    $("body").on("input propertychange", ".label-form-group", function(e) {
+        $(this).toggleClass("label-form-group-with-value", !!$(e.target).val());
+    }).on("focus", ".label-form-group", function() {
+        $(this).addClass("label-form-group-with-focus");
+    }).on("blur", ".label-form-group", function() {
+        $(this).removeClass("label-form-group-with-focus");
     });
-    $(function(){
-        $('.input-group.date').datepicker({
-            calendarWeeks: false,
-            todayHighlight: true,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: "kr"
-        });
+
+    $('#datepicker input').datepicker({
+        daysOfWeekDisabled: "0,6",
+       // daysOfWeekHighlighted: "0,6",
+        daysOfWeekHighlighted: "1,2,3,4,5",
+        todayHighlight: true,
+        calendarWeeks: false,
+        autoclose: true,
+        format: "yyyy-mm-dd",
+        language: "kr",
+        startDate: '+0d'
     });
-})(jQuery);
+
+});
 
 tinymce.init({
     selector: 'textarea#catenoidMailForm',
@@ -59,7 +62,7 @@ var sendTextarea = function () {
 
     if (confirm("작성한 메일을 등록하시겠습니까?")) {
         $.ajax({
-            url: "/sendMail",
+            url: "/schedule/sendMail",
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",
             dataType: 'JSON',
             data: { mailForm : mailForm, title:emailTitle, resDate: resDate},

@@ -1,6 +1,5 @@
 package kollus.stmp.stmp.component;
 
-import kollus.stmp.stmp.dao.DbCustomerCodeEntity;
 import kollus.stmp.stmp.dao.DbCustomerCodeRepository;
 import kollus.stmp.stmp.dao.DbCustomerEntity;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
@@ -20,10 +19,6 @@ public class CustomListComponent {
     private DbCustomerCodeRepository dbCustomerCodeRepository;
 
     public CustomListComponent(){}
-
-    public void test123(){
-
-    }
 
     public List<HashMap<String, String>> getCustomerList(){
         List<Object[]> resultList = dbCustomerCodeRepository.GetCustomerEmail();

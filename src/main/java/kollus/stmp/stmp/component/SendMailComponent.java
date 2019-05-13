@@ -17,8 +17,6 @@ import java.util.*;
 public class SendMailComponent {
 
     @Autowired
-    private DbCustomerRepository dbCustomerRepository;
-    @Autowired
     private DbCustomerCodeRepository dbCustomerCodeRepository;
     @Autowired
     private DbReservationRepository dbReservationRepository;
@@ -88,15 +86,6 @@ public class SendMailComponent {
         }
 
         return result;
-    }
-
-    public String getHTMLMailForm(String textBody){
-
-        String mailForm = "<div style = 'width: 900px;'>";
-        mailForm+=textBody;
-        mailForm+="</div>";
-
-        return mailForm;
     }
 
     public String setSchedule(String sendMailHTML, List<HashMap<String, String>> costomerList){

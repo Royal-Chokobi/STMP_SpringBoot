@@ -7,7 +7,7 @@ var detailReservation = function(group_code, group_title) {
     }
 
     $.ajax({
-        url: "/getReservationDetail",
+        url: "/reservation/getReservationDetail",
         contentType: "application/x-www-form-urlencoded;charset=UTF-8",
         dataType: 'JSON',
         data: { groupCdoe : group_code},
@@ -47,7 +47,7 @@ var cancelResCustomer = function (kind, group_code, res_code) {
     }
     if (confirm("예약을 취소하시겠습니까?")) {
         $.ajax({
-            url: "/cancelReservation",
+            url: "/reservation/cancelReservation",
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",
             dataType: 'JSON',
             data: {kind : kind, group_code : group_code, res_code : res_code},

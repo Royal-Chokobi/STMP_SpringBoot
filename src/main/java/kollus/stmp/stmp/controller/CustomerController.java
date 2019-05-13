@@ -1,8 +1,7 @@
 package kollus.stmp.stmp.controller;
 
 import kollus.stmp.stmp.component.CustomListComponent;
-import kollus.stmp.stmp.component.SendMailComponent;
-import kollus.stmp.stmp.dao.*;
+import kollus.stmp.stmp.dao.DbCustomerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,20 +19,16 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private SendMailComponent SendMailComponent;
-    @Autowired
     private CustomListComponent customListComponent;
-    @Autowired
-    private DbReservationRepository dbReservationRepository;
-    @Autowired
-    private DbCustomerRepository DbCustomerRepository;
 
     @RequestMapping(value = {""}, method = RequestMethod.GET)
     public ModelAndView customerList(Model model) {
         List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
         model.addAttribute("tbdata", tb_data);
 
-        return new ModelAndView("Customer");
+        model.addAttribute("html", "content/customer");
+        model.addAttribute("fragment", "customer");
+        return new ModelAndView("layout");
     }
 
     @ResponseBody
@@ -88,5 +83,23 @@ public class CustomerController {
 
         return result;
     }
+
+   /* @ResponseBody
+    @RequestMapping(value = {"/createcustomer"}, method = RequestMethod.POST)
+    public HashMap<String, String> createCustomer(HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String customer_name = request.getParameter("customer_name");
+        String requestBody = request.getParameter("manager_info");
+        System.out.println(customer_name);
+        System.out.println(requestBody.toString());
+
+        List<HashMap<String, String>> test33 = JsonPath.read(requestBody, "$.manager_info.*");
+      //  HashMap<String, String> result = customListComponent.delCustomer(customerCode);
+        System.out.println(customer_name);
+        System.out.println(test33.toString());
+        System.out.println(test33.get(0));
+        //System.out.println(test33.get(0).get("manager_email"));
+        return null;
+    }*/
 
 }

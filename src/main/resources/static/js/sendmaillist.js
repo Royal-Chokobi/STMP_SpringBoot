@@ -1,3 +1,12 @@
+$(document).ready(function () {
+    dataTablePage();
+});
+
+var dataTablePage =  function(){
+    $('#dataTable').DataTable({
+        "order": [[ 0, "desc" ]]
+    });
+};
 var detailSendMail = function(group_code, group_title) {
 
     $('#modalLabel').html("["+group_code+"]"+group_title);

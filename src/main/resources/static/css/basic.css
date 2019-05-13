@@ -271,6 +271,11 @@ form.user .custom-checkbox.small label {
     width: 930px;
     height: 100%;
 }
+.modal-lg-size{
+    margin: 30px auto;
+    width: 700px;
+    height: 100%;
+}
 .modal-bigsize{
     margin: 30px auto;
     width: 1200px;
@@ -281,7 +286,7 @@ form.user .custom-checkbox.small label {
    /* box-shadow: 0 1px 1px rgba(0,0,0,0.15); */
     top: 65px;
     right: 0;
-    bottom: 55px;
+    bottom: 0px;
 }
 .animate-div {
     width:100%;
@@ -308,7 +313,8 @@ form.user .custom-checkbox.small label {
 .pointer{
     cursor: pointer;
 }
+/*
 .min-vh-88{
     background-color: #f8f9fc;
     min-height: 88.5vh;
-}
+}*/

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:fragment="reservationList">
+      <!-- Main Content -->
+      <div id="content">
+        <div class="container-fluid">
+          <div class="card shadow mb-4 mt-3">
+              <div class="card-header py-3">
+                  <h6 class="h3 m-0 font-weight-bold text-primary d-inline-block">예약 리스트</h6>
+              </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>전송 Group Code</th>
+                      <th>메일 제목</th>
+                      <th>예약 일자</th>
+                      <th>전송 일자</th>
+                      <th>State</th>
+                      <th>전체 취소</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    <tr th:each="dt: ${tbdata}">
+                      <td th:text="${dt.group_code}"></td>
+                      <td>
+                          <span  th:text="${dt.group_title}"></span>
+                          <div class="float-right">
+                              <span class="tag tag__pc tooltip-message td_div" th:onclick="|javascript:detailReservation('${dt.group_code}', '${dt.group_title}')|" data-target="#modal" data-toggle="modal">상세보기</span>
+                          </div>
+                          <div ></div>
+                      </td>
+                      <td th:text="${dt.reservation_date}"></td>
+                      <td th:text="${dt.sys_send_date}"></td>
+                      <td th:text="${dt.state}"></td>
+                      <td>
+                          <span class="tag tag__mobile tooltip-message td_div" th:onclick="|javascript:cancelResCustomer('group', '${dt.group_code}', '0')|">그룹 전송취소</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-bigsize" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="display: block;">
+            <div class="float-right">
+                <a href="javascript:;" data-dismiss="modal" class="glyphicon glyphicon-remove"></a>
+            </div>
+            <div class="float-left">
+                <h3 class="modal-title" id="modalLabel"></h3>
+            </div>
+        </div>
+        <div class="modal-body">
+          <div >
+            <table class="table table-bordered" width="100%" cellspacing="0">
+             <thead>
+              <tr>
+                <th>고객사</th>
+                <th>메일 제목</th>
+                <th>받는 사람</th>
+                <th>State</th>
+                <th>취소</th>
+              </tr>
+              </thead>
+              <tbody  class="res-Modal-List">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="m-btn m-btn-danger" id="modalClose" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script th:src="@{/js/reservation.js}"></script>
+</div>
+</html>

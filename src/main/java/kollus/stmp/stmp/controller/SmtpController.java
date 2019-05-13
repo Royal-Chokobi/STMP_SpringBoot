@@ -1,11 +1,7 @@
 package kollus.stmp.stmp.controller;
 
-import kollus.stmp.stmp.component.CustomListComponent;
 import kollus.stmp.stmp.component.SendMailComponent;
-import kollus.stmp.stmp.dao.DbCustomerRepository;
 import kollus.stmp.stmp.dao.DbGroupReservationEntity;
-import kollus.stmp.stmp.dao.DbReservationEntity;
-import kollus.stmp.stmp.dao.DbReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,35 +20,24 @@ public class SmtpController {
 
     @Autowired
     private SendMailComponent SendMailComponent;
-    @Autowired
-    private CustomListComponent customListComponent;
-    @Autowired
-    private DbReservationRepository dbReservationRepository;
-    @Autowired
-    private DbCustomerRepository DbCustomerRepository;
+
 
     @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
-    public ModelAndView index1(Model model) throws Exception{
-        /*List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailSendList();
-        model.addAttribute("tbdata", tb_data);*/
-        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
-        model.addAttribute("tbdata", tb_data);
-        model.addAttribute("html", "customer");
-        model.addAttribute("fragment", "content");
+    public ModelAndView index(Model model) throws Exception{
+        model.addAttribute("html", "content/sendMailpage");
+        model.addAttribute("fragment", "sendmailpage");
 
-        return new ModelAndView("index");
-    }
-    @RequestMapping(value = {""}, method = RequestMethod.GET)
-    public ModelAndView index() throws Exception{
-        return new ModelAndView("sendMailpage");
+        return new ModelAndView("layout");
     }
 
     @RequestMapping(value = {"/sendlist"}, method = RequestMethod.GET)
     public ModelAndView sendList(Model model) {
         List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailSendList();
         model.addAttribute("tbdata", tb_data);
+        model.addAttribute("html", "content/sendList");
+        model.addAttribute("fragment", "sendList");
 
-        return new ModelAndView("SendList");
+        return new ModelAndView("layout");
     }
 
     @ResponseBody
@@ -65,41 +50,9 @@ public class SmtpController {
         return tb_data;
     }
 
-    @RequestMapping(value = {"/reservationlist"}, method = RequestMethod.GET)
-    public ModelAndView reservationList(Model model) {
-        List<DbGroupReservationEntity> tb_data = SendMailComponent.getEmailReservationList();
-        model.addAttribute("tbdata", tb_data);
 
-        return new ModelAndView("reservationList");
-    }
-
-    @ResponseBody
-    @RequestMapping(value = {"/getReservationDetail"}, method = RequestMethod.POST)
-    public List<DbReservationEntity> reservationDetail( HttpServletRequest request) throws Exception{
-        request.setCharacterEncoding("utf-8");
-        String group_code = request.getParameter("groupCdoe");
-        List<DbReservationEntity> tb_data = SendMailComponent.getReservationDetail(group_code);
-
-        return tb_data;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = {"/cancelReservation"}, method = RequestMethod.POST)
-    public HashMap<String, Object> cancelReservationEmail( HttpServletRequest request) throws Exception{
-        request.setCharacterEncoding("utf-8");
-        String kind = request.getParameter("kind");
-        String group_code = request.getParameter("group_code");
-        String res_code = request.getParameter("res_code");
-
-        HashMap<String, Object> result = SendMailComponent.reservationStateCancel(kind, group_code, res_code);
-
-
-        return result;
-    }
-
-
-
-    @RequestMapping(value = {"/sendmailpage"}, method = RequestMethod.GET)
+/*
+    @RequestMapping(value = {"/sendmailpage1"}, method = RequestMethod.GET)
     public ModelAndView mailpage() throws Exception{
         System.out.println("===============inSite Spring by Jae Yoon Lee - Get smtp=======================");
 
@@ -113,16 +66,16 @@ public class SmtpController {
       //  System.out.println(items.toString());
       //  SendMailComponent.test123();
 
-        /*Enumeration params = request.getParameterNames();
+        *//*Enumeration params = request.getParameterNames();
         System.out.println("----------------------------");
         while (params.hasMoreElements()){
             String name = (String)params.nextElement();
             System.out.println(name + " : " +request.getParameter(name));
         }
-        System.out.println("----------------------------");*/
+        System.out.println("----------------------------");*//*
 
         return new ModelAndView("sendMailpage");
-    }
+    }*/
 
     @ResponseBody
     @RequestMapping(value = {"/sendMail123"}, method = RequestMethod.POST)
