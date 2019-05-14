@@ -17,7 +17,7 @@ $(document).ready(function () {
         autoclose: true,
         format: "yyyy-mm-dd",
         language: "kr",
-        startDate: '+0d'
+        startDate: '+1d'
     });
 
 });

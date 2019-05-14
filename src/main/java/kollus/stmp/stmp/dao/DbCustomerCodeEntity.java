@@ -8,7 +8,8 @@ import java.util.Date;
 public class DbCustomerCodeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_index", insertable = false)
     private long code_index;
     @Column(name="customer_key")
     private String customer_key;

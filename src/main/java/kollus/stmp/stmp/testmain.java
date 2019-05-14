@@ -1,5 +1,7 @@
 package kollus.stmp.stmp;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -15,6 +17,12 @@ import java.util.UUID;
 public class testmain {
 
     public static void main(String[] args) throws Exception{
+
+        JsonParser jsonParser = new JsonParser();
+        JsonArray jsonArray = (JsonArray) jsonParser.parse("[{\"manager_name\":\"qwe\",\"manager_email\":\"123\"},{\"manager_name\":\"asd\",\"manager_email\":\"3241\"}]");
+        //  HashMap<String, String> result = customListComponent.delCustomer(customerCode);
+        System.out.println(jsonArray.toString());
+
 
         Date from = new Date();
         System.out.println(from);

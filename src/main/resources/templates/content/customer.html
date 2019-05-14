@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="animate-side-div detail select-box">
+    <div class="animate-side-div detail select-box" style="border-left: 2px solid #3498db;">
         <div class="col-xl-12">
             <div class="card border-left-primary h-100 mb-3">
                 <div class="card-body p-2">
@@ -53,7 +53,7 @@
                         <div class="col ">
                             <div class="row no-gutters label-form-group align-items-center ">
                                 <div class="col">
-                                    <span class="tag tag__card" >고객사</span>
+                                    <span class="tag tag__card" id="sp_cus_code"></span>
                                     <input class="form-control bg-white" type="text" id="customer_nm" placeholder="Customer">
                                 </div>
                                 <div class="col-auto" id="cus_edit">
@@ -63,6 +63,16 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-xl-12 small">
+            <div class='col mb-3 text-right'>
+                <button type="button" class="white-btn"  onclick="addCustomerLine('customer_detail');">
+                    <i class="glyphicon glyphicon-user" style="color: #3498db;"></i>추가
+                </button>
+                <button type="button" class="white-btn" onclick="addCustomer();">
+                    <i class="glyphicon glyphicon-ok"></i>등록
+                </button>
             </div>
         </div>
         <div class="col-xl-12 small" id="customer_detail">
@@ -93,12 +103,12 @@
                         </div>
                         <hr class="sidebar-divider d-none d-md-block">
                         <div class="col mb-3">
-                            <button type="button" class="white-btn" style="display: contents" onclick="addCustomerLine();">
-                                <i class="glyphicon glyphicon-user"></i>
+                            <button type="button" class="white-btn" style="display: contents" onclick="addCustomerLine('cus-line');">
+                                <i class="glyphicon glyphicon-user" style="color: #3498db;"></i>
                                 추가
                             </button>
                         </div>
-                        <div class='card border-left-warning cus-line'>
+                        <div class='card border-left-warning' id="cus-line">
                             <div class='row no-gutters label-form-group align-items-center m-3'>
                                 <div class='col-3'>
                                     <input class='form-control bg-white' type='text' name="manager_name"  placeholder='담당자' >

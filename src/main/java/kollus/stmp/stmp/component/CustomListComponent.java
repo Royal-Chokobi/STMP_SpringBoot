@@ -1,5 +1,9 @@
 package kollus.stmp.stmp.component;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import kollus.stmp.stmp.dao.DbCustomerCodeEntity;
 import kollus.stmp.stmp.dao.DbCustomerCodeRepository;
 import kollus.stmp.stmp.dao.DbCustomerEntity;
 import kollus.stmp.stmp.dao.DbCustomerRepository;
@@ -86,4 +90,42 @@ public class CustomListComponent {
         return results;
     }
 
+    public String insertCustomerCodeInfo(String customer_name){
+
+        DbCustomerCodeEntity cusCodeEnt = new DbCustomerCodeEntity();
+        String cusCode = dbCustomerCodeRepository.getNewCustomerKey();
+        cusCodeEnt.setCustomer_key(cusCode);
+        cusCodeEnt.setCustomer(customer_name);
+        dbCustomerCodeRepository.save(cusCodeEnt);
+
+        return cusCode;
+    }
+
+    public HashMap<String, String> insertCustomerInfo(String manager_info, String cusCode){
+
+        HashMap<String, String> results = new HashMap<String, String>();
+        JsonParser jsonParser = new JsonParser();
+        JsonArray info_jsonArray = (JsonArray) jsonParser.parse(manager_info);
+        List<DbCustomerEntity> cusEntarr = new ArrayList<>();
+
+        for (int i = 0; i < info_jsonArray.size(); i++) {
+            JsonObject item_obj = (JsonObject) info_jsonArray.get(i);
+            String manager_name = item_obj.get("manager_name").getAsString().trim();
+            String manager_email = item_obj.get("manager_email").getAsString().trim();
+
+            if(manager_email != null && manager_name != null){
+                DbCustomerEntity cusEnt = new DbCustomerEntity();
+                cusEnt.setCustomer_key(cusCode);
+                cusEnt.setCustomer_name(manager_name);
+                cusEnt.setCustomer_email(manager_email);
+                cusEntarr.add(cusEnt);
+            }
+        }
+
+        dbCustomerRepository.saveAll(cusEntarr);
+
+        results.put("message", "정상적으로 등록 되었습니다.");
+
+        return results;
+    }
 }

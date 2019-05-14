@@ -84,22 +84,27 @@ public class CustomerController {
         return result;
     }
 
-   /* @ResponseBody
+    @ResponseBody
     @RequestMapping(value = {"/createcustomer"}, method = RequestMethod.POST)
     public HashMap<String, String> createCustomer(HttpServletRequest request) throws Exception{
         request.setCharacterEncoding("utf-8");
         String customer_name = request.getParameter("customer_name");
-        String requestBody = request.getParameter("manager_info");
-        System.out.println(customer_name);
-        System.out.println(requestBody.toString());
+        String manager_info = request.getParameter("manager_info");
+        String cus_code = customListComponent.insertCustomerCodeInfo(customer_name);
+        HashMap<String, String> result= customListComponent.insertCustomerInfo(manager_info, cus_code);
 
-        List<HashMap<String, String>> test33 = JsonPath.read(requestBody, "$.manager_info.*");
-      //  HashMap<String, String> result = customListComponent.delCustomer(customerCode);
-        System.out.println(customer_name);
-        System.out.println(test33.toString());
-        System.out.println(test33.get(0));
-        //System.out.println(test33.get(0).get("manager_email"));
-        return null;
-    }*/
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/addcustomer"}, method = RequestMethod.POST)
+    public HashMap<String, String> addCustomer(HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String customer_code = request.getParameter("customer_code");
+        String manager_info = request.getParameter("manager_info");
+        HashMap<String, String> result= customListComponent.insertCustomerInfo(manager_info, customer_code);
+
+        return result;
+    }
 
 }
