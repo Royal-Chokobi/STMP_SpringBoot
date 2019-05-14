@@ -8,11 +8,11 @@
         <version>2.1.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>kollus.STMP</groupId>
-    <artifactId>stmp</artifactId>
+    <groupId>kollus.SMTP</groupId>
+    <artifactId>smtp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>stmp</name>
-    <description>STMP Project</description>
+    <name>smtp</name>
+    <description>SMTP Project</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -20,10 +20,6 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
@@ -117,24 +113,7 @@
             <artifactId>gson</artifactId>
             <version>2.8.2</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.1.4.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.3.Final</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>-->
+
     </dependencies>
 
     <build>
@@ -149,6 +128,16 @@
                         <version>1.2.8.RELEASE</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <to>
+                        <image>docker.io/ollehing/smtp-app</image>
+                    </to>
+                </configuration>
             </plugin>
         </plugins>
     </build>
