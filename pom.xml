@@ -10,9 +10,10 @@
     </parent>
     <groupId>kollus.SMTP</groupId>
     <artifactId>smtp</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
     <name>smtp</name>
-    <description>SMTP Project</description>
+    <description>SMTP Project by JYLee</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -41,7 +42,10 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -137,6 +141,31 @@
                     <to>
                         <image>docker.io/ollehing/smtp-app</image>
                     </to>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>kollus.stmp.stmp.SmtpApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>kollus.stmp.stmp.SmtpApplication</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

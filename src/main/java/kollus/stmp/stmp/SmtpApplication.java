@@ -1,9 +1,7 @@
 package kollus.stmp.stmp;
 
-import kollus.stmp.stmp.component.ScheduleComponent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class SmtpApplication {
