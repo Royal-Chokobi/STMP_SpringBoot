@@ -10,7 +10,7 @@
     </parent>
     <groupId>kollus.SMTP</groupId>
     <artifactId>smtp</artifactId>
-    <version>1.0.1</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>smtp</name>
     <description>SMTP Project by JYLee</description>
