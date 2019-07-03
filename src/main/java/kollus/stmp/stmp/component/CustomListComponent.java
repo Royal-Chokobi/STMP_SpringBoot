@@ -94,6 +94,9 @@ public class CustomListComponent {
 
         DbCustomerCodeEntity cusCodeEnt = new DbCustomerCodeEntity();
         String cusCode = dbCustomerCodeRepository.getNewCustomerKey();
+        if(cusCode == null){
+            cusCode="C0001";
+        }
         cusCodeEnt.setCustomer_key(cusCode);
         cusCodeEnt.setCustomer(customer_name);
         dbCustomerCodeRepository.save(cusCodeEnt);

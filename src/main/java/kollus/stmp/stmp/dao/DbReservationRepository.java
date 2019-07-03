@@ -19,7 +19,7 @@ public interface DbReservationRepository extends JpaRepository<DbReservationEnti
     List<DbReservationEntity> getScheduleSendList(@Param("group_code") String group_code);
 
     @Query(value = "SELECT GROUP_CONCAT(tb_res.customer separator ',') AS customer, GROUP_CONCAT(tb_res.state separator ',') AS state, tb_res.email_form " +
-            " FROM smtp_reservation tb_res WHERE tb_res.group_code = :group_code ", nativeQuery = true)
+            " FROM smtp_reservation tb_res WHERE tb_res.group_code = :group_code group by tb_res.email_form ", nativeQuery = true)
     List<Object[]> getSendMailDetailData(@Param("group_code") String group_code);
 
     @Query(value = "SELECT tb_res.reservation_code, tb_res.customer, tb_res.email_title, tb_res.customer_address, tb_res.state  FROM smtp_reservation tb_res WHERE tb_res.group_code = :group_code", nativeQuery = true)

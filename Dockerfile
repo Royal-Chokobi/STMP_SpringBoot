@@ -1,5 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8
 ADD target/smtp-1.0.jar app.jar
-ENV JAVA_OPTS=""
-EXPOSE 8080
+EXPOSE 8088
 ENTRYPOINT ["java","-jar","/app.jar"]

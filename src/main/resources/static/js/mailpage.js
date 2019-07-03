@@ -20,6 +20,8 @@ $(document).ready(function () {
         startDate: '+1d'
     });
 
+    //dataTablePage();
+
 });
 
 tinymce.init({
@@ -38,6 +40,10 @@ tinymce.init({
         '//www.tiny.cloud/css/codepen.min.css'
     ]
 });
+/*
+var dataTablePage =  function(){
+    $('#dataTable').DataTable();
+};*/
 
 var sendTextarea = function () {
 
@@ -88,4 +94,9 @@ var showpicker = function () {
         $(".date > input").val("");
         $(".date").removeClass("hide");
     }
+};
+
+var selectMailCustomer = function (e) {
+    console.log($(e)[0].outerHTML);
+    $('.rm-mail-cus').append($(e)[0].outerHTML);
 };

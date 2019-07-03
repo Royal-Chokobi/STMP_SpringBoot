@@ -37,7 +37,8 @@ public class EmailJobSchedulerController {
 
     @RequestMapping(value = {""}, method = RequestMethod.GET)
     public ModelAndView mailpage(Model model) throws Exception{
-
+        List<HashMap<String, String>> tb_data= customListComponent.getCustomerList();
+        model.addAttribute("tbdata", tb_data);
         model.addAttribute("html", "content/sendMailpage");
         model.addAttribute("fragment", "sendmailpage");
 
