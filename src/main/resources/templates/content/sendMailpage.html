@@ -16,7 +16,7 @@
                             <div class="custom-control custom-checkbox small float-right">
                                 <input type="checkbox" class="custom-control-input" id="reservationCheck">
                                 <label class="custom-control-label" for="reservationCheck" onclick="showpicker()">예약설정</label>
-                                <span class="tag tag__mobile tooltip-message td_div select-btn ml-2" data-target="#modal" data-toggle="modal">
+                                <span class="tag tag__mobile tooltip-message td_div select-btn ml-2" >
                                     <i class="glyphicon glyphicon-user"></i>전송 고객사 보기
                                 </span>
                             </div>
@@ -167,13 +167,37 @@
                             <button type="button" id="btn-update-content" class="m-btn m-btn-primary" onclick="sendTextarea();"><i class="glyphicon glyphicon-envelope"></i>전송등록</button>
                             <button type="button" id="btn-delete-content" class="m-btn m-btn-danger"  onclick="sendClose();"><i class="glyphicon glyphicon-remove"></i>Cancle</button>
                         </div>
+                        <!-- 전송 고객사 리스트 -->
+                        <div class="animate-side-div detail select-box animate-side-on" style="border-left: 2px solid #3498db;">
+                            <div class="col-xl-12">
+                                <div class="card border-left-primary h-100 mb-3">
+                                    <div class="card-body p-2">
+                                        메일 전송 고객사
+                                        <div class="cus-send-list">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="card border-left-primary h-100 mb-3">
+                                    <div class="card-body p-2">
+                                        고객사 리스트
+                                        <div class="cus-list">
+                                            <span class="tag tag__modal tooltip-message td_div" th:each="dt: ${tbdata}"  th:title="${dt.customerEmail}" onclick="selectMailCustomer(this);" ><i class="glyphicon glyphicon-tag" style="color: #3498db;"  th:text="${dt.customerNM}"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 전송 고객사 리스트 end-->
                     </div>
                 </div>
             </div>
         </div>
 
     <!-- modal -->
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+   <!-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="display: block;">
@@ -183,24 +207,25 @@
                     <div class="float-left">
                         <h3 class="modal-title" id="modalLabel">메일 전송 고객사</h3>
                     </div>
-                    <!--<div class="float-right">
+                    &lt;!&ndash;<div class="float-right">
                         <input type="checkbox" class="custom-control-input" id="reservationCheck">
                         <label class="custom-control-label" for="reservationCheck" onclick="showpicker()">예약설정</label>
                         <h3 class="modal-title" id="rmCustomer">전체 제외하기</h3>
-                    </div>-->
+                    </div>&ndash;&gt;
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive add-mail-cus">
-                        <!--th:onclick="|javascript:test('${dt.customerCode}')|"-->
+                        &lt;!&ndash;th:onclick="|javascript:test('${dt.customerCode}')|"&ndash;&gt;
                         <span class="tag tag__modal tooltip-message td_div" th:each="dt: ${tbdata}"  th:title="${dt.customerEmail}" onclick="selectMailCustomer(this);" ><i class="glyphicon glyphicon-tag"  th:text="${dt.customerNM}"></i></span>
                     </div>
+
                     <div class="table-responsive rm-mail-cus">
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 </div>
 </html>

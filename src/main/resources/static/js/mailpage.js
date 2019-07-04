@@ -98,5 +98,9 @@ var showpicker = function () {
 
 var selectMailCustomer = function (e) {
     console.log($(e)[0].outerHTML);
-    $('.rm-mail-cus').append($(e)[0].outerHTML);
+    console.log($(e).parent()[0].className);
+    var divClassName = $(e).parent()[0].className;
+    divClassName = (divClassName == "cus-list") ? "cus-send-list" : "cus-list";
+    $('.'+divClassName).append($(e)[0].outerHTML);
+    $(e).remove();
 };
