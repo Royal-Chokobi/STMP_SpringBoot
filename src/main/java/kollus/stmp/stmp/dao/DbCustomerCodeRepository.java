@@ -21,6 +21,15 @@ public interface DbCustomerCodeRepository extends CrudRepository<DbCustomerCodeE
     )
    List<Object[]> GetCustomerEmail();
 
+    @Query(
+            value = "SELECT tb_code.customer_key,tb_code.customer, GROUP_CONCAT(tb_info.customer_email separator ', ') AS customer_email FROM customer_code tb_code " +
+                    "LEFT JOIN  customer_info tb_info ON tb_info.customer_key = tb_code.customer_key " +
+                    " WHERE tb_code.customer_key IN (:cusCodeList) " +
+                    "GROUP BY tb_code.customer_key, tb_code.customer ORDER BY tb_code.customer_key ASC"
+            , nativeQuery = true
+    )
+    List<Object[]> GetSelectCustomerEmail(@Param("cusCodeList") List<String> cusCodeList);
+
    @Query(value = "SELECT CONCAT('C',(SELECT LPAD(code_index+1,4,'0') FROM customer_code ORDER BY code_index DESC limit 1)) AS customer_key", nativeQuery = true)
    String getNewCustomerKey();
 

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,17 +50,24 @@ public class EmailJobSchedulerController {
     @RequestMapping(value = {"/sendMail"}, method = RequestMethod.POST)
     public HashMap<String, Object> scheduleEmail(HttpServletRequest request) throws Exception {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        List<HashMap<String, String>> customerlist = new ArrayList<HashMap<String, String>>();
 
         try {
             request.setCharacterEncoding("utf-8");
             String textBody = request.getParameter("mailForm");
             String emailTitle = request.getParameter("title");
             String resDate = request.getParameter("resDate");
+            String selectCusCode = request.getParameter("selectCusCode");
 
-            LocalDateTime sendDateTime= scheduleComponent.getReservationDate(resDate);
+            LocalDateTime sendDateTime = scheduleComponent.getReservationDate(resDate);
             String groupCode = scheduleComponent.getGroupCodeForm();
             String sendBody = scheduleComponent.getHTMLMailForm(textBody);
-            List<HashMap<String, String>> customerlist= customListComponent.getCustomerList();
+            //List<HashMap<String, String>> customerlist= customListComponent.getCustomerList();
+            if(!selectCusCode.equals("N")){
+                customerlist= customListComponent.getCustomerSelectList(selectCusCode);
+            }else{
+                customerlist= customListComponent.getCustomerList();
+            }
 
             ZonedDateTime dateTime = ZonedDateTime.of(sendDateTime, ZoneId.of("Asia/Seoul"));
 

@@ -42,8 +42,8 @@ public class ScheduleComponent{
             targetDateTime = targetDateTime.now()
                     .withMonth(Integer.parseInt(dateArray[1]))
                     .withDayOfMonth(Integer.parseInt(dateArray[2]))
-                    .withHour(14)
-                    .withMinute(00)
+                    .withHour(10)
+                    .withMinute(30)
                     .withSecond(00);
         }else{
             targetDateTime = LocalDateTime.now().plusSeconds(30);
